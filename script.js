@@ -1,20 +1,20 @@
 // Définition des variables : 
 const url = "https://api-adresse.data.gouv.fr/search/?q=";
 const urlDPETertiairev2 = "https://data.ademe.fr/data-fair/api/v1/datasets/dpe-v2-tertiaire-2/lines?select=*&q=";
-const urlDPETertiairev1 ="https://data.ademe.fr/data-fair/api/v1/datasets/dpe-tertiaire/lines?select=*&q="
-const urlDPENeufv2 = "https://data.ademe.fr/data-fair/api/v1/datasets/dpe02neuf/lines?select=*&q="
-const urlDPEExistantv2 = "https://data.ademe.fr/data-fair/api/v1/datasets/dpe-v2-logements-existants/lines?select=*&q="
+const urlDPETertiairev1 ="https://data.ademe.fr/data-fair/api/v1/datasets/dpe-tertiaire/lines?select=*&q=";
+const urlDPENeufv2 = "https://data.ademe.fr/data-fair/api/v1/datasets/dpe02neuf/lines?select=*&q=";
+const urlDPEExistantv2 = "https://data.ademe.fr/data-fair/api/v1/datasets/dpe-v2-logements-existants/lines?select=*&q=";
 // const urlDPEExistantv1 = "https://data.ademe.fr/data-fair/api/v1/datasets/dpe-france/lines?select=*&q="
 
 
 let button = document.getElementById('boutonMyForm');
-let buttonDlCsv = document.getElementById('BoutonTelechargerCsv');
-let realBoutonTelechargerCsv = document.getElementById('realBoutonTelechargerCsv');
+// let buttonDlCsv = document.getElementById('BoutonTelechargerCsv');
+// let realBoutonTelechargerCsv = document.getElementById('realBoutonTelechargerCsv');
 let input = document.getElementById('myInput');
 
 // Menue de paramètrage : 
-let classBoutonActiver = "text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center h-10 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-let classBoutonDesactiver = "py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
+let classBoutonActiver = "text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center h-10 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800";
+let classBoutonDesactiver = "py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700";
 let boutonDPETertiaire = document.getElementById('boutonDPETertiaire');
 let boutonLogementNeuf = document.getElementById('boutonLogementNeuf');
 let boutonLogementExistant = document.getElementById('boutonLogementExistant');
@@ -44,9 +44,9 @@ let context = document.getElementById('context_adr');
 // Gestion de la recherche Unique : 
 let globalData = [];
 cardContainer.innerHTML = '';
-buttonDlCsv.style.display = 'none';
-realBoutonTelechargerCsv.disabled = 'true'
-realBoutonTelechargerCsv.className = "text-white bg-grey-600 hover:text-white border border-gray-700 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center me-2 mb-2 h-10 dark:border-gray-500 dark:text-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-800 w-full cursor-not-allowed";
+// buttonDlCsv.style.display = 'none';
+// realBoutonTelechargerCsv.disabled = 'true'
+// realBoutonTelechargerCsv.className = "text-white bg-grey-600 hover:text-white border border-gray-700 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center me-2 mb-2 h-10 dark:border-gray-500 dark:text-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-800 w-full cursor-not-allowed";
 
 // Gestion de la recherche avec Dépôt de document :
 // let formUploadCsv = document.getElementById('myFormCsv');
@@ -209,8 +209,8 @@ async function getInfoAdresse(adresse) {
           // Lancement du second traitement : 
           getInfoDPE(index, donnees.features[index].properties.id);
         };
-      buttonDlCsv.style.display = 'block';
-      ActiverBouton();
+      // buttonDlCsv.style.display = 'block';
+      // ActiverBouton();
     }
 };
 
@@ -272,8 +272,8 @@ async function getInfoDPE(numero_id, geo_id) {
 
         cardDivDPE.appendChild(cardADPE);
         carteActuelle.appendChild(cardADPE);
-        console.log(globalData.length)
-        console.log(globalData)
+        // console.log(globalData.length)
+        // console.log(globalData)
       }
   }
 };
@@ -289,14 +289,14 @@ function sauvegarderDonnees(data) {
 }
 
 // Fonction pour bien enregistrer les données dans le bon ordre
-function ActiverBouton() {
+// function ActiverBouton() {
 
-  const promesse = new Promise((resolve, reject) =>{
-    setTimeout(() => resolve(realBoutonTelechargerCsv.disabled = false), 3000);
-    setTimeout(() => realBoutonTelechargerCsv.className = "text-green-700 hover:text-white border border-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center me-2 mb-2 h-10 dark:border-green-500 dark:text-green-500 dark:hover:text-white dark:hover:bg-green-600 dark:focus:ring-green-800 w-full", 4000);
-  })
-  // console.log("Données Poussée")
-}
+//   const promesse = new Promise((resolve, reject) =>{
+//     setTimeout(() => resolve(realBoutonTelechargerCsv.disabled = false), 3000);
+//     setTimeout(() => realBoutonTelechargerCsv.className = "text-green-700 hover:text-white border border-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center me-2 mb-2 h-10 dark:border-green-500 dark:text-green-500 dark:hover:text-white dark:hover:bg-green-600 dark:focus:ring-green-800 w-full", 4000);
+//   })
+//   // console.log("Données Poussée")
+// }
 
 // Ecouteur d'événement : 
 button.addEventListener('click', (e) => {
@@ -315,10 +315,10 @@ button.addEventListener('click', (e) => {
 })
 ;
 
-buttonDlCsv.addEventListener('click', (e) => {
-  // console.log(globalData)
-  downloadCSV()
-});
+// buttonDlCsv.addEventListener('click', (e) => {
+//   // console.log(globalData)
+//   downloadCSV()
+// });
 
 // Partie bouton de paramètrage : 
 boutonDPETertiaire.addEventListener('click', (e) => {
