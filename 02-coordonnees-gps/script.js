@@ -59,6 +59,7 @@ document.addEventListener('DOMContentLoaded', function () {
   function readFile(file) {
     const reader = new FileReader();
 
+<<<<<<< HEAD
     reader.onload = function (event) {
       const content = event.target.result;
       // Utilisation de TextDecoder pour décoder le contenu en UTF-8
@@ -69,6 +70,16 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Lire le fichier en tant que ArrayBuffer
     reader.readAsArrayBuffer(file);
+=======
+    // Lorsque le fichier est chargé
+    reader.onload = function (event) {
+      const content = event.target.result;
+      displayCSVContent(content);
+    };
+
+    // Lire le fichier en tant que texte
+    reader.readAsText(file);
+>>>>>>> e4ee53e (ajout fetch position)
   }
 
   function displayCSVContent(content) {
@@ -77,17 +88,84 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Optionnel : traiter le contenu CSV
     const rows = content.split('\n');
+<<<<<<< HEAD
     const csvData = rows.map(row => row.split(';'));
     boutonLancerTraitement.className = classBoutonActiver;
     return csvData
+=======
+    const csvData = rows.map(row => row.split(','));
+    console.log(csvData); // Vous pouvez voir les données sous forme de tableau dans la console
+>>>>>>> e4ee53e (ajout fetch position)
   }
 });
 
 
+<<<<<<< HEAD
 async function getInfoVille(array) {
   let promises = array.map(async (params) => {
     let urlGet = `${url}city=${params[1]}&county=${params[2]}&state=${params[3]}&country=France&postalcode=${params[4]}&format=jsonv2`
     // console.log(urlGet)
+=======
+arrayTest = [["44000 - Nantes","Nantes", "Loire-Atlantique", "Pays de la Loire", "44000"],
+["13000 - Marseille","Marseille", "Bouches-du-Rhône", "Provence-Alpes-Côte d'Azur", "13000"],
+["69000 - Lyon", "Lyon", "Rhône", "Auvergne-Rhône-Alpes", "69000"],
+["01100 - Bourg-en-Bresse", "Bourg-en-Bresse", "Ain", "Auvergne-Rhône-Alpes", "01100"]]
+
+boutonTest.addEventListener('click', (e) => {
+  arrayAllLine = []
+  for (let index = 0; index < arrayTest.length; index++) {
+    let identifiant   = arrayTest[index][0];
+    let city          = arrayTest[index][1];
+    let departement   = arrayTest[index][2];
+    let region        = arrayTest[index][3];
+    let codepostal    = arrayTest[index][4];
+
+    arrayLine = getInfoVille(city, departement, region, codepostal, identifiant)
+    arrayAllLine.push(arrayLine)
+  }
+    async function getInfoVille(city, departement, region, codepostal, identifiant) {
+    let promises = array.map(async (city, departement, region, codepostal, identifiant) => {
+      let urlGet = `${url}city=${city}&county=${departement}&state=${region}&country=France&postalcode=${codepostal}&format=jsonv2`
+      const requete = await fetch(urlGet, {
+          method: 'GET',
+          headers: {'User-Agent' : "experimentationGitHub/1.0 (emilien.sezestre@gmail.com)" },
+        });
+      
+      if(!requete.ok) {
+          alert('Un problème est survenu, veuillez réessayer plus tard');
+      } else {
+          let donnees = await requete.json();
+          for (let index = 0; index < donnees.length; index++) {
+            let adressetype = donnees[index]["addresstype"];
+
+            if (listeTypeVille.includes(adressetype)) {
+
+              let ligneConserver = index;
+              let typeAdresse = donnees[ligneConserver]["addresstype"];
+              let nomRetour = donnees[ligneConserver]["display_name"];
+              let latitude = donnees[ligneConserver]["lat"];
+              let longitude = donnees[ligneConserver]["lon"];
+
+
+              let arrayLine = [identifiant, typeAdresse, nomRetour, latitude, longitude]
+              return arrayLine
+              break
+            } else {
+              console.log("Pas une ville");
+            }
+      }
+    }
+  });
+  const results = await Promise.all(promises);
+  return results; // Cela renvoie un tableau avec tous les résultats
+  }
+});
+
+
+async function getInfoVille2(array) {
+  let promises = array.map(async (params) => {
+    let urlGet = `${url}city=${params[1]}&county=${params[2]}&state=${params[3]}&country=France&postalcode=${params[4]}&format=jsonv2`
+>>>>>>> e4ee53e (ajout fetch position)
     const requete = await fetch(urlGet, {
         method: 'GET',
         headers: {'User-Agent' : "experimentationGitHub/1.0 (emilien.sezestre@gmail.com)" },
@@ -109,7 +187,11 @@ async function getInfoVille(array) {
             let longitude = donnees[ligneConserver]["lon"];
 
 
+<<<<<<< HEAD
             let arrayLine = [params[0], typeAdresse, nomRetour, latitude, longitude]
+=======
+            let arrayLine = [identifiant, typeAdresse, nomRetour, latitude, longitude]
+>>>>>>> e4ee53e (ajout fetch position)
             return arrayLine
             break
           } else {
@@ -122,6 +204,7 @@ const results = await Promise.all(promises);
 return results; // Cela renvoie un tableau avec tous les résultats
 }
 
+<<<<<<< HEAD
 async function lancementAnalyseArray(arrayCSV) {
   // const arrayTest = [["44000 - Nantes","Nantes", "Loire-Atlantique", "Pays de la Loire", "44000"],
   // ["13000 - Marseille","Marseille", "Bouches-du-Rhône", "Provence-Alpes-Côte d'Azur", "13000"],
@@ -133,11 +216,23 @@ async function lancementAnalyseArray(arrayCSV) {
       // console.log(allData); // Affichez toutes les données une fois qu'elles sont toutes récupérées
       boutonTelecharger.className = classBoutonActiverTelechargerCSV;
       return allData
+=======
+async function main() {
+  const arrayTest = [["44000 - Nantes","Nantes", "Loire-Atlantique", "Pays de la Loire", "44000"],
+  ["13000 - Marseille","Marseille", "Bouches-du-Rhône", "Provence-Alpes-Côte d'Azur", "13000"],
+  ["69000 - Lyon", "Lyon", "Rhône", "Auvergne-Rhône-Alpes", "69000"],
+  ["01100 - Bourg-en-Bresse", "Bourg-en-Bresse", "Ain", "Auvergne-Rhône-Alpes", "01100"]]  
+
+  try {
+      const allData = await getInfoVille2(arrayTest);
+      console.log(allData); // Affichez toutes les données une fois qu'elles sont toutes récupérées
+>>>>>>> e4ee53e (ajout fetch position)
   } catch (error) {
       console.error('Une erreur est survenue lors du fetch :', error);
   }
 }
 
+<<<<<<< HEAD
 // Avant de passer à la gestion de l'asynchrone : 
 boutonLancerTraitement.addEventListener('click', (e) => {
   // console.log("Lancement Traitement....")
@@ -170,3 +265,59 @@ function telechargerCSV(data) {
     URL.revokeObjectURL(url);
 }
 
+=======
+// Appel de la fonction principale
+main();
+
+
+
+
+
+
+// Avant de passer à la gestion de l'asynchrone : 
+// boutonTest.addEventListener('click', (e) => {
+//   arrayAllLine = []
+//   for (let index = 0; index < arrayTest.length; index++) {
+//     let identifiant   = arrayTest[index][0];
+//     let city          = arrayTest[index][1];
+//     let departement   = arrayTest[index][2];
+//     let region        = arrayTest[index][3];
+//     let codepostal    = arrayTest[index][4];
+
+//     arrayLine = getInfoVille(city, departement, region, codepostal, identifiant)
+//     arrayAllLine.push(arrayLine)
+//   }
+//   console.log(arrayAllLine)
+//     async function getInfoVille(city, departement, region, codepostal, identifiant) {
+//     let urlGet = `${url}city=${city}&county=${departement}&state=${region}&country=France&postalcode=${codepostal}&format=jsonv2`
+//     const requete = await fetch(urlGet, {
+//         method: 'GET',
+//         headers: {'User-Agent' : "experimentationGitHub/1.0 (emilien.sezestre@gmail.com)" },
+//       });
+    
+//     if(!requete.ok) {
+//         alert('Un problème est survenu, veuillez réessayer plus tard');
+//     } else {
+//         let donnees = await requete.json();
+//         for (let index = 0; index < donnees.length; index++) {
+//           let adressetype = donnees[index]["addresstype"];
+
+//           if (listeTypeVille.includes(adressetype)) {
+
+//             let ligneConserver = index;
+//             let typeAdresse = donnees[ligneConserver]["addresstype"];
+//             let nomRetour = donnees[ligneConserver]["display_name"];
+//             let latitude = donnees[ligneConserver]["lat"];
+//             let longitude = donnees[ligneConserver]["lon"];
+
+
+//             let arrayLine = [identifiant, typeAdresse, nomRetour, latitude, longitude]
+//             return arrayLine
+//             break
+//           } else {
+//             console.log("Pas une ville");
+//           }
+//       }
+//     }}
+// });
+>>>>>>> e4ee53e (ajout fetch position)
