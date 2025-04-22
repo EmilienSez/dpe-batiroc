@@ -379,14 +379,21 @@ boutonApres2021.addEventListener('click', (e) => {
 // Pour les tests : 5 Rue Louis-Jacques Daguerre 35136 Saint-Jacques-de-la-Lande
 =======
 boutonDocDPE = document.getElementById('doc-dpe');
-titre = document.getElementById('titre');
-paragrapheUn = document.getElementById('p1');
+boutonDocSIRET = document.getElementById('doc-siret');
+boutonDocGPS = document.getElementById('doc-gps');
 
+let titre = document.getElementById('titre');
+let textePage = document.getElementById('paragraphe-txt');
+let zoneTexte = document.getElementById('div-texte-docu');
 
+let classP = "mt-4 text-gray-900";
+let classPCentrer = "mt-4 text-gray-900 text-center";
+let classImg = "w-150 h-150 mx-auto object-cover border-[#fffade] rounded-lg border-4";
+let classImgDiv = "mt-4 mb-4 text-center";
+let classUl = "list-disc ml-12 mt-4 text-gray-900"
 
 // Ecouteur d'événement : 
 boutonDocDPE.addEventListener('click', (e) => {
     titre.textContent = "Documentation - Utilisation de l'API DPE"
   })
 ;
->>>>>>> a438974 (Front-End)
