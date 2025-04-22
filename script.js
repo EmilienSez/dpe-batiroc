@@ -1,383 +1,3 @@
-<<<<<<< HEAD
-// Définition des variables : 
-const url = "https://api-adresse.data.gouv.fr/search/?q=";
-const urlDPETertiairev2 = "https://data.ademe.fr/data-fair/api/v1/datasets/dpe-v2-tertiaire-2/lines?select=*&q=";
-const urlDPETertiairev1 ="https://data.ademe.fr/data-fair/api/v1/datasets/dpe-tertiaire/lines?select=*&q=";
-const urlDPENeufv2 = "https://data.ademe.fr/data-fair/api/v1/datasets/dpe02neuf/lines?select=*&q=";
-const urlDPEExistantv2 = "https://data.ademe.fr/data-fair/api/v1/datasets/dpe-v2-logements-existants/lines?select=*&q=";
-// const urlDPEExistantv1 = "https://data.ademe.fr/data-fair/api/v1/datasets/dpe-france/lines?select=*&q="
-
-
-let button = document.getElementById('boutonMyForm');
-// let buttonDlCsv = document.getElementById('BoutonTelechargerCsv');
-// let realBoutonTelechargerCsv = document.getElementById('realBoutonTelechargerCsv');
-let input = document.getElementById('myInput');
-
-// Menue de paramètrage : 
-let classBoutonActiver = "text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center h-10 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800";
-let classBoutonDesactiver = "py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700";
-let boutonDPETertiaire = document.getElementById('boutonDPETertiaire');
-let boutonLogementNeuf = document.getElementById('boutonLogementNeuf');
-let boutonLogementExistant = document.getElementById('boutonLogementExistant');
-let boutonAvant2021 = document.getElementById('boutonAvant2021');
-let boutonApres2021 = document.getElementById('boutonApres2021');
-
-// Par défault : 
-boutonDPETertiaire.className = classBoutonActiver
-boutonLogementNeuf.className = classBoutonDesactiver
-boutonLogementExistant.className = classBoutonDesactiver
-boutonAvant2021.className = classBoutonDesactiver
-boutonApres2021.className = classBoutonActiver
-let typeAPI = 1
-let periodeAPI = 2
-
-// Les informations : 
-let cardContainer = document.getElementById('cardContainer');
-let enfantcardContainer = document.getElementById('centrerLesCartes');
-let cardAdresse = document.getElementById('carteAdresse');
-let label = document.getElementById('label_adr');
-let score = document.getElementById('score_adr');
-let city = document.getElementById('city_adr');
-let housenumber = document.getElementById('housenumber_adr');
-let street = document.getElementById('street_adr');
-let context = document.getElementById('context_adr');
-
-// Gestion de la recherche Unique : 
-let globalData = [];
-cardContainer.innerHTML = '';
-// buttonDlCsv.style.display = 'none';
-// realBoutonTelechargerCsv.disabled = 'true'
-// realBoutonTelechargerCsv.className = "text-white bg-grey-600 hover:text-white border border-gray-700 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center me-2 mb-2 h-10 dark:border-gray-500 dark:text-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-800 w-full cursor-not-allowed";
-
-// Gestion de la recherche avec Dépôt de document :
-// let formUploadCsv = document.getElementById('myFormCsv');
-// formUploadCsv.action = "/dpe/upload_csv/";
-
-// Fonction pour calculer une le changement de la couleur :
-function interpolateColor(color1, color2, factor) {
-  const result = color1.slice(); // Clone la couleur de départ
-  for (let i = 0; i < 3; i++) {
-      result[i] = Math.round(result[i] + factor * (color2[i] - color1[i]));
-  }
-  return result;
-}
-
-// Récupérer la couleur en fonction du score de correspondance BANO
-function getColor(randomValue) {
-  const colors = [
-      [202, 65, 19],      // rgba(202, 65, 19, 1)
-      [202, 118, 34],     // rgba(202, 118, 34, 1)
-      [217, 175, 52],     // rgba(217, 175, 52, 1)
-      [230, 213, 93],     // rgba(230, 213, 93, 1)
-      [147, 176, 32],     // rgba(147, 176, 32, 1)
-      [75, 114, 33]       // rgba(75, 114, 33, 1)
-  ];
-  // Déterminer entre quelles couleurs nous interpolons
-  const index1 = Math.floor(randomValue * (colors.length - 1));
-  const index2 = index1 + 1 < colors.length ? index1 + 1 : index1;
-
-  // Calculer le facteur d'interpolation
-  const factor = (randomValue * (colors.length - 1)) - index1;
-
-  // Interpoler entre les deux couleurs
-  const interpolatedColor = interpolateColor(colors[index1], colors[index2], factor);
-
-  // Retourner la couleur au format rgba
-  return `rgba(${interpolatedColor[0]}, ${interpolatedColor[1]}, ${interpolatedColor[2]}, 1)`;
-}
-
-function downloadCSV() {
-
-  // Envoyer les données à une vue Django
-  fetch('/dpe/download_file/', {
-      method: 'POST',
-      headers: {
-          'Content-Type': 'application/json',
-          'X-CSRFToken': getCookie('csrftoken') // getCSRFToken(), // getCookie('csrftoken')  // Assurez-vous d'envoyer le token CSRF si nécessaire
-      },
-      body: JSON.stringify(globalData)
-  })
-  .then(response => response.blob())
-  .then(blob => {
-      const url = window.URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = 'data.csv';  // Nom du fichier
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a); // Nettoyer
-      // window.URL.revokeObjectURL(url); // Libérer l'URL
-  })
-  .catch(error => {
-      console.error('Erreur:', error);
-  });
-}
-
-// Fonction pour obtenir le token CSRF
-function getCookie(name) {
-  let cookieValue = null;
-  if (document.cookie && document.cookie !== '') {
-      const cookies = document.cookie.split(';');
-      for (let i = 0; i < cookies.length; i++) {
-          const cookie = cookies[i].trim();
-          // Vérifiez si ce cookie commence par le nom que nous voulons
-          if (cookie.substring(0, name.length + 1) === (name + '=')) {
-              cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-              break;
-          }
-      }
-  }
-  return cookieValue;
-}
-
-// Fonction pour obtenir le token CSRF
-function getCSRFToken() {
-  return document.querySelector("meta[name='csrf-token']").getAttribute("content");
-}
-
-// Fonction pour sélectionner l'API :
-function getChoixAPI(typeAPIf, periodeAPIf, geo_idf) {
-  if (typeAPIf === 1 && periodeAPIf === 1) {
-    urlGetf = `${urlDPETertiairev1}${geo_idf}&q_modr=simple&q_fields=geo_id`
-  } else if (typeAPIf === 1 && periodeAPIf === 2) {
-    urlGetf = `${urlDPETertiairev2}${geo_idf}&q_modr=simple&q_fields=Identifiant__BAN`
-  } else if (typeAPIf === 2 && periodeAPIf === 2) {
-    urlGetf = `${urlDPENeufv2}${geo_idf}&q_modr=simple&q_fields=Identifiant__BAN`
-  } else if (typeAPIf === 3 && periodeAPIf === 2) {
-    urlGetf = `${urlDPEExistantv2}${geo_idf}&q_modr=simple&q_fields=Identifiant__BAN`
-  }
-  return urlGetf
-} 
-
-// Fonction pour aller récupérer les adresses en fonction de la saisie de l'utilisateur : 
-async function getInfoAdresse(adresse) {
-    let urlGet = `${url}${adresse}`
-    const requete = await fetch(urlGet, {
-        method: 'GET'
-      });
-    
-    if(!requete.ok) {
-        alert('Un problème est survenu, veuillez réessayer plus tard');
-    } else {
-        cardContainer.innerHTML = '';
-        let donnees = await requete.json();
-        globalData.push(donnees)
-        for (let index = 0; index < donnees.features.length; index++) {
-
-          // Créer des éléments de la nouvelle Carte : 
-          const cardDiv1 = document.createElement('div');
-          const cardDiv2 = document.createElement('div');
-          const cardA = document.createElement('a');
-          const cardH5 = document.createElement('h5');
-          const cardPScore = document.createElement('p');
-          const cardPCity = document.createElement('p');
-          const cardPContext = document.createElement('p');
-          const br = document.createElement('br');
-
-          // Changement des classes :
-          cardDiv1.className = "flex justify-center"
-          cardDiv2.className = "w-full max-w-7xl px-7"
-          cardA.className = "block p-6 border border-black-200 rounded-lg shadow-sm hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700";
-          cardDiv2.id = `carte_numero_${index}`;
-          cardH5.className = "mb-2 text-2xl font-bold tracking-tight text-gray-800 dark:text-white texteQuiDépassePas";
-          cardPScore.className = "font-normal text-gray-700 dark:text-gray-400 texteQuiDépassePas";
-          cardPCity.className = "font-normal text-gray-700 dark:text-gray-400 texteQuiDépassePas";
-          cardPContext.className = "font-normal text-gray-700 dark:text-gray-400 texteQuiDépassePas";
-          
-          // Changement du style : 
-          const CouleurCarte = getColor(Number(donnees.features[index].properties.score));
-          cardA.style.backgroundColor = CouleurCarte;
-          
-          // Changement des informations : 
-          cardH5.textContent = `Adresse : ${donnees.features[index].properties.label}`;
-          cardPScore.textContent = `Score Correspondance : ${Math.round(donnees.features[index].properties.score*100)/100} |    Type d'adresse : ${donnees.features[index].properties.type}`;
-          cardPCity.textContent = `Numéro de Voie : ${donnees.features[index].properties.housenumber} | Voie : ${donnees.features[index].properties.street} | Ville : ${donnees.features[index].properties.city}`;
-          cardPContext.textContent = `Département & Région : ${donnees.features[index].properties.context}`;
-          
-          // Création de la carte : 
-          cardA.appendChild(cardH5);
-          cardA.appendChild(cardPScore);
-          cardA.appendChild(cardPCity);
-          cardA.appendChild(cardPContext);
-
-          cardDiv2.appendChild(cardA);
-          cardDiv2.appendChild(br);
-          cardDiv1.appendChild(cardDiv2);
-
-          // Ajouter la Carte au conteneur :
-          cardContainer.appendChild(cardDiv1);
-
-          // Lancement du second traitement : 
-          getInfoDPE(index, donnees.features[index].properties.id);
-        };
-      // buttonDlCsv.style.display = 'block';
-      // ActiverBouton();
-    }
-};
-
-
-// Fonction pour aller récupérer les DPE associé au geo_id
-async function getInfoDPE(numero_id, geo_id) {
-  let urlGet = getChoixAPI(typeAPI, periodeAPI, geo_id)
-  // console.log(typeAPI)
-  // console.log(periodeAPI)
-  // console.log(geo_id)
-  // console.log(urlGet)
-  const requete = await fetch(urlGet, {
-      method: 'GET'
-    });
-    
-  if(!requete.ok) {
-      alert('Un problème est survenu, veuillez réessayer plus tard');
-  } else {
-      let donnees = await requete.json();
-      // globalData.push(donnees);
-      sauvegarderDonnees(donnees)
-      // console.log(`dpe stockées :  ${donnees.total}`)
-      // console.log(Object.keys(donnees.results[0]))
-      for (let index = 0; index < donnees.total; index++) {
-        // Récupération de la carte pour ajout : 
-        let carteActuelle = document.getElementById(`carte_numero_${numero_id}`);
-        // Création des informations des DPE :
-        const cardDivDPE = document.createElement('div'); 
-        const cardADPE = document.createElement('a'); 
-        const cardH7 = document.createElement('h7');
-        const cardPEtiquetteDPE = document.createElement('p');
-        const cardPEtiquetteGES = document.createElement('p');
-        const cardPAdresseBrut = document.createElement('p');
-
-        // Changement des classes pour Front : 
-        cardDivDPE.className = "w-full max-w-6xl px-7"
-        cardADPE.className = "block p-2 border border-black-200 rounded-lg shadow-sm hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700"
-        cardADPE.id=`carte_numero_dpe_${index}`
-        cardH7.className = "mb-2 text-1xl font-bold tracking-tight text-gray-800 dark:text-white texteQuiDépassePas";
-        cardPEtiquetteDPE.className = "font-normal text-gray-700 dark:text-gray-400 texteQuiDépassePas";
-        cardPEtiquetteGES.className = "font-normal text-gray-700 dark:text-gray-400 texteQuiDépassePas";
-        cardPAdresseBrut.className = "font-normal text-gray-700 dark:text-gray-400 texteQuiDépassePas";
-
-        // Changement du style : 
-        const CouleurCarte = getColor(Number(donnees.results[index]["Score_BAN"]));
-        cardADPE.style.backgroundColor = CouleurCarte;
-
-        // Changement du texte : 
-        cardH7.textContent = `DPE n°${index+1} : ${donnees.results[index]["N°DPE"]} | Score BANO DPE : ${donnees.results[index]["Score_BAN"]}`;
-        cardPEtiquetteDPE.textContent = `Etiquette DPE : ${donnees.results[index]["Etiquette_DPE"]} | Consommation énergétique : ${donnees.results[index]["Conso_kWhep/m²/an"]}`;
-        cardPEtiquetteGES.textContent = `Etiquette GES : ${donnees.results[index]["Etiquette_GES"]} | Emission GES : ${donnees.results[index]["Emission_GES_kgCO2/m²/an"]}`;
-        cardPAdresseBrut.textContent = `Adresse Brut : ${donnees.results[index]["Adresse_brute"]}, ${donnees.results[index]["Nom__commune_(Brut)"]} ${donnees.results[index]["Code_postal_(brut)"]}`;
-
-        // Ajout à la carte : 
-        cardADPE.appendChild(cardH7);
-        cardADPE.appendChild(cardPEtiquetteDPE);
-        cardADPE.appendChild(cardPEtiquetteGES);
-        cardADPE.appendChild(cardPAdresseBrut);
-
-        cardDivDPE.appendChild(cardADPE);
-        carteActuelle.appendChild(cardADPE);
-        // console.log(globalData.length)
-        // console.log(globalData)
-      }
-  }
-};
-
-// Fonction pour bien enregistrer les données dans le bon ordre
-function sauvegarderDonnees(data) {
-
-  const promesse = new Promise((resolve, reject) =>{
-    setTimeout(() => resolve(globalData.push(data)), 3000);
-
-  })
-  // console.log("Données Poussée")
-}
-
-// Fonction pour bien enregistrer les données dans le bon ordre
-// function ActiverBouton() {
-
-//   const promesse = new Promise((resolve, reject) =>{
-//     setTimeout(() => resolve(realBoutonTelechargerCsv.disabled = false), 3000);
-//     setTimeout(() => realBoutonTelechargerCsv.className = "text-green-700 hover:text-white border border-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center me-2 mb-2 h-10 dark:border-green-500 dark:text-green-500 dark:hover:text-white dark:hover:bg-green-600 dark:focus:ring-green-800 w-full", 4000);
-//   })
-//   // console.log("Données Poussée")
-// }
-
-// Ecouteur d'événement : 
-button.addEventListener('click', (e) => {
-  globalData = []
-  let valueSend = input.value
-  valueSend = valueSend.replaceAll(","," ").toLowerCase();
-  valueSend = valueSend.replaceAll(" ","+");
-  valueSend = valueSend.replaceAll("-","+");
-  valueSend = valueSend.replaceAll("++","+");
-  // console.log(valueSend);
-  if(isNaN(valueSend) == true && valueSend.length < 150) {
-    getInfoAdresse(valueSend)
-  } else {
-    alert("Veuillez saisir une adresse correcte");
-  }
-})
-;
-
-// buttonDlCsv.addEventListener('click', (e) => {
-//   // console.log(globalData)
-//   downloadCSV()
-// });
-
-// Partie bouton de paramètrage : 
-boutonDPETertiaire.addEventListener('click', (e) => {
-  if (boutonDPETertiaire.className != classBoutonActiver) {
-    boutonLogementNeuf.className = classBoutonDesactiver;
-    boutonLogementExistant.className = classBoutonDesactiver;
-    boutonDPETertiaire.className = classBoutonActiver;
-    typeAPI = 1;
-    boutonAvant2021.style.display = 'block';
-  } 
-})
-
-boutonLogementNeuf.addEventListener('click', (e) => {
-  if (boutonLogementNeuf.className != classBoutonActiver) {
-    boutonDPETertiaire.className = classBoutonDesactiver;
-    boutonLogementExistant.className  = classBoutonDesactiver;
-    boutonLogementNeuf.className  = classBoutonActiver;
-    boutonAvant2021.style.display = 'none';
-    boutonAvant2021.className = classBoutonDesactiver;
-    boutonApres2021.className  = classBoutonActiver;
-    periodeAPI = 2;
-    typeAPI = 2;
-  } 
-})
-
-boutonLogementExistant.addEventListener('click', (e) => {
-  if (boutonLogementExistant.className != classBoutonActiver) {
-    boutonDPETertiaire.className = classBoutonDesactiver;
-    boutonLogementNeuf.className  = classBoutonDesactiver;
-    boutonLogementExistant.className  = classBoutonActiver;
-    boutonLogementExistant.className  = classBoutonActiver;
-    boutonAvant2021.style.display = 'none';
-    boutonAvant2021.className = classBoutonDesactiver;
-    boutonApres2021.className  = classBoutonActiver;
-    periodeAPI = 2;
-    typeAPI = 3;
-  } 
-})
-
-boutonAvant2021.addEventListener('click', (e) => {
-  if (boutonAvant2021.className != classBoutonActiver) {
-    boutonApres2021.className = classBoutonDesactiver;
-    boutonAvant2021.className  = classBoutonActiver;
-    periodeAPI = 1;
-  } 
-})
-
-boutonApres2021.addEventListener('click', (e) => {
-  if (boutonApres2021.className != classBoutonActiver) {
-    boutonAvant2021.className = classBoutonDesactiver;
-    boutonApres2021.className  = classBoutonActiver;
-    periodeAPI = 2;
-  } 
-})
-
-
-// Pour les tests : 5 Rue Louis-Jacques Daguerre 35136 Saint-Jacques-de-la-Lande
-=======
 boutonDocDPE = document.getElementById('doc-dpe');
 boutonDocSIRET = document.getElementById('doc-siret');
 boutonDocGPS = document.getElementById('doc-gps');
@@ -394,6 +14,193 @@ let classUl = "list-disc ml-12 mt-4 text-gray-900"
 
 // Ecouteur d'événement : 
 boutonDocDPE.addEventListener('click', (e) => {
-    titre.textContent = "Documentation - Utilisation de l'API DPE"
+    titre.textContent = "Documentation - Utilisation de l'API DPE";
+    textePage.remove();
+    zoneTexte.appendChild(divClassParentDPE);
+    divClassParentDPE.appendChild(DPEp1);
+    divClassParentDPE.appendChild(DPEp2);
+    divClassParentDPE.appendChild(DPEImg1Div);
+    divClassParentDPE.appendChild(DPEp3);
+    divClassParentDPE.appendChild(DPEp4);
+    divClassParentDPE.appendChild(DPEp5);
+    divClassParentDPE.appendChild(DPEImg2Div);
+    divClassParentDPE.appendChild(DPEp6);
+    textePage = divClassParentDPE;
   })
 ;
+
+boutonDocSIRET.addEventListener('click', (e) => {
+  titre.textContent = "Documentation - Récupération d'information d'entreprise";
+  textePage.remove();
+  zoneTexte.appendChild(divClassParentSIRET);
+  divClassParentSIRET.appendChild(SIRETp1);
+  divClassParentSIRET.appendChild(SIRETp2);
+  divClassParentSIRET.appendChild(SIRETImg1Div);
+  divClassParentSIRET.appendChild(SIRETp3);
+  divClassParentSIRET.appendChild(SIRETUl1);
+  divClassParentSIRET.appendChild(SIRETp4);
+  divClassParentSIRET.appendChild(SIRETImg2Div);
+  divClassParentSIRET.appendChild(SIRETp5);
+  textePage = divClassParentSIRET;
+})
+;
+
+boutonDocGPS.addEventListener('click', (e) => {
+  titre.textContent = "Documentation - Récupération des coordonnées GPS"
+  textePage.remove()
+  zoneTexte.appendChild(divClassParentGPS);
+  divClassParentGPS.appendChild(GPSp1);
+  divClassParentGPS.appendChild(GPSImg1Div);
+  divClassParentGPS.appendChild(GPSp2);
+  divClassParentGPS.appendChild(GPSUl1);
+  divClassParentGPS.appendChild(GPSp3);
+  divClassParentGPS.appendChild(GPSImg2Div);
+  divClassParentGPS.appendChild(GPSp4);
+  divClassParentGPS.appendChild(GPSp5);
+  divClassParentGPS.appendChild(GPSp6);
+  textePage = divClassParentGPS;
+})
+;
+
+
+// Les textes : 
+const divClassParentDPE = document.createElement('div');
+divClassParentDPE.id = "paragraphe-txt"
+const divClassParentSIRET = document.createElement('div');
+divClassParentSIRET.id = "paragraphe-txt"
+const divClassParentGPS = document.createElement('div');
+divClassParentGPS.id = "paragraphe-txt"
+// Pour les DPE : 
+
+const DPEp1 = document.createElement('p');
+DPEp1.className = classP;
+DPEp1.textContent = "Fonctionnement : Utilisation de l’API BANO (Base des adresses National Ouverte) pour récupérer l’identifiant unique d’adresse au niveau nationale, aussi appelée Identifiant BANO.";
+
+const DPEp2 = document.createElement('p');
+DPEp2.className = classP;
+DPEp2.textContent = "Dans un second temps, nous envoyons l’Identifiant BANO à l’API de l’ADEME, pour voir si un DPE est associé à l’adresse fourni. Si un DPE est associé à l’adresse, alors ce dernier sera renvoyé par sur la page (voir ci-dessous) : ";
+
+const DPEp3 = document.createElement('p');
+DPEp3.className = classP;
+DPEp3.textContent = "Afin de s’assurer de la correspondance entre le DPE et l’adresse recherchée, veuillez regarder Contrôler avec l’adresse brut, qui correspond à l’adresse saisie par le diagnostiqueur sur le DPE.";
+
+const DPEp4 = document.createElement('p');
+DPEp4.className = classP;
+DPEp4.textContent = "Vous pouvez également contrôler via le type d’usage du bâtiment, la surface SHON ou la surface utile.";
+
+const DPEp5 = document.createElement('p');
+DPEp5.className = classP;
+DPEp5.textContent = "De plus, afin d'avoir une trace vous pouvez télécharger l’ensemble des résultats à l’aide du bouton de téléchargement. Vous trouverez ci-dessous la page de présentation : ";
+
+const DPEp6 = document.createElement('p');
+DPEp6.className = classP;
+DPEp6.textContent = "Vous pouvez également choisir le type d’API en fonction de votre besoin. Dans le cadre de BATIROC, nous utiliserons principalement l’API des DPE Tertiaire après juillet 2021.";
+
+DPEImg1 = document.createElement('img');
+DPEImg1.className = classImg;
+DPEImg1.src = "static/doc/DPE1.png"
+DPEImg1Div = document.createElement('div');
+DPEImg1Div.className = classImgDiv;
+DPEImg1Div.appendChild(DPEImg1);
+
+DPEImg2 = document.createElement('img');
+DPEImg2.className = classImg;
+DPEImg2.src = "static/doc/DPE2.png"
+DPEImg2Div = document.createElement('div');
+DPEImg2Div.className = classImgDiv;
+DPEImg2Div.appendChild(DPEImg2);
+
+// Pour les SIRET : 
+
+const SIRETp1 = document.createElement('p');
+SIRETp1.className = classP;
+SIRETp1.textContent = "Dans ce traitement, nous utilisons une API du gouvernement pour récupérer des informations sur des entités à partir du SIRET. Il y a 2 types d’utilisation, dans un premier temps, vous pouvez faire une recherche simple via le SIRET (14 chiffres) uniquement. De plus, dans le cas où vous souhaitez récupérer des informations sur un grand nombre de document, vous pouvez le faire via un dépôt de document.";
+
+const SIRETp2 = document.createElement('p');
+SIRETp2.className = classPCentrer;
+SIRETp2.textContent = "Voici la page d’acceuil :";
+
+const SIRETp3 = document.createElement('p');
+SIRETp3.className = classP;
+SIRETp3.textContent = "Veuillez-vous fier aux informations ci-dessous pour construire le fichier de dépôt :";
+
+const SIRETp4 = document.createElement('p');
+SIRETp4.className = classPCentrer;
+SIRETp4.textContent = "Exemple de fichier : ";
+
+const SIRETp5 = document.createElement('p');
+SIRETp5.className = classP;
+SIRETp5.textContent = "Dans le cadre de ce traitement, nous utilisons l’API de l’Annuaire des Entreprises (site du gouvernement), disponible ICI.";
+
+SIRETImg1 = document.createElement('img');
+SIRETImg1.className = classImg;
+SIRETImg1.src = "static/doc/SIRET1.png"
+SIRETImg1Div = document.createElement('div');
+SIRETImg1Div.className = classImgDiv;
+SIRETImg1Div.appendChild(SIRETImg1);
+
+SIRETImg2 = document.createElement('img');
+SIRETImg2.className = classImg;
+SIRETImg2.src = "static/doc/SIRET2.png"
+SIRETImg2Div = document.createElement('div');
+SIRETImg2Div.className = classImgDiv;
+SIRETImg2Div.appendChild(SIRETImg2);
+
+SIRETUl1 = document.createElement('ul');
+SIRETUl1.className = classUl;
+SIRETLi1Ul1 = document.createElement('li');
+SIRETLi1Ul1.textContent = "Format : .CSV (délimité par des virgules)";
+SIRETLi2Ul1 = document.createElement('li');
+SIRETLi2Ul1.textContent = "Uniquement des SIRET";
+SIRETUl1.appendChild(SIRETLi1Ul1);
+SIRETUl1.appendChild(SIRETLi2Ul1);
+
+// Pour les Coordonnées GPS : 
+
+const GPSp1 = document.createElement('p');
+GPSp1.className = classP;
+GPSp1.textContent = "Ce traitement utilise l’API d’OpenStreetMap pour récupérer des coordonnées GPS à partir d’adresse. Il nécessite le dépôt d’un document.";
+
+const GPSp2 = document.createElement('p');
+GPSp2.className = classP;
+GPSp2.textContent = "Concernant le fichier de dépôt : ";
+
+const GPSp3 = document.createElement('p');
+GPSp3.className = classPCentrer;
+GPSp3.textContent = "Exemple de fichier ci-dessous : ";
+
+const GPSp4 = document.createElement('p');
+GPSp4.className = classP;
+GPSp4.textContent = "Une fois que vous avez déposé le fichier, cliquez sur « Télécharger le CSV », vous pourrez cliquer dessus lorsque le traitement sera terminé.";
+
+const GPSp5 = document.createElement('p');
+GPSp5.className = classP;
+GPSp5.textContent = "En retour, vous recevrez un fichier comportant l’identifiant, le type d’adresse (ville, village, etc…), le nom de l’endroit de retour, latitude et longitude.";
+
+const GPSp6 = document.createElement('p');
+GPSp6.className = classP;
+GPSp6.textContent = "Sur la même page, vous trouverez un second traitement, permettant de calculer le minimum de distance entre 2 coordonnées, via, dans un premier temps, le calcul de la distance de Haversine. Puis une fois toutes les distances calculées, on sélectionne la distance minimal.";
+
+
+GPSImg1 = document.createElement('img');
+GPSImg1.className = classImg;
+GPSImg1.src = "static/doc/GPS1.png"
+GPSImg1Div = document.createElement('div');
+GPSImg1Div.className = classImgDiv;
+GPSImg1Div.appendChild(GPSImg1);
+
+GPSImg2 = document.createElement('img');
+GPSImg2.className = classImg;
+GPSImg2.src = "static/doc/GPS2.png"
+GPSImg2Div = document.createElement('div');
+GPSImg2Div.className = classImgDiv;
+GPSImg2Div.appendChild(GPSImg2);
+
+GPSUl1 = document.createElement('ul');
+GPSUl1.className = classUl;
+GPSLi1Ul1 = document.createElement('li');
+GPSLi1Ul1.textContent = "Format : .CSV (délimité par des virgules)";
+GPSLi2Ul1 = document.createElement('li');
+GPSLi2Ul1.textContent = "5 Colonnes : Identifiant, Ville, Département, Région, Pays";
+GPSUl1.appendChild(GPSLi1Ul1);
+GPSUl1.appendChild(GPSLi2Ul1);
