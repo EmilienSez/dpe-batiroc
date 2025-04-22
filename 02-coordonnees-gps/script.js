@@ -74,7 +74,10 @@ document.addEventListener('DOMContentLoaded', function () {
     // Lorsque le fichier est chargé
     reader.onload = function (event) {
       const content = event.target.result;
-      displayCSVContent(content);
+      // Utilisation de TextDecoder pour décoder le contenu en UTF-8
+      const decoder = new TextDecoder();
+      const decodedContent = decoder.decode(new Uint8Array(content));
+      csvData = displayCSVContent(decodedContent);
     };
 
     // Lire le fichier en tant que texte
@@ -162,7 +165,7 @@ boutonTest.addEventListener('click', (e) => {
 });
 
 
-async function getInfoVille2(array) {
+async function getInfoVille(array) {
   let promises = array.map(async (params) => {
     let urlGet = `${url}city=${params[1]}&county=${params[2]}&state=${params[3]}&country=France&postalcode=${params[4]}&format=jsonv2`
 >>>>>>> e4ee53e (ajout fetch position)
