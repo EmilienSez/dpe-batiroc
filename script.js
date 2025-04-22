@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 // Définition des variables : 
 const url = "https://api-adresse.data.gouv.fr/search/?q=";
 const urlDPETertiairev2 = "https://data.ademe.fr/data-fair/api/v1/datasets/dpe-v2-tertiaire-2/lines?select=*&q=";
@@ -376,3 +377,16 @@ boutonApres2021.addEventListener('click', (e) => {
 
 
 // Pour les tests : 5 Rue Louis-Jacques Daguerre 35136 Saint-Jacques-de-la-Lande
+=======
+boutonDocDPE = document.getElementById('doc-dpe');
+titre = document.getElementById('titre');
+paragrapheUn = document.getElementById('p1');
+
+
+
+// Ecouteur d'événement : 
+boutonDocDPE.addEventListener('click', (e) => {
+    titre.textContent = "Documentation - Utilisation de l'API DPE"
+  })
+;
+>>>>>>> a438974 (Front-End)
