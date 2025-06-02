@@ -236,7 +236,7 @@ boutonTelecharger.addEventListener('click', (e) => {
 
 function telechargerCSV(data) {
   // Convertir les données en format CSV
-  const csvContent = data.map(e => e.join(",")).join("\n");
+  const csvContent = data.map(e => e.join(";")).join("\n");
 
   // Créer un Blob à partir du contenu CSV
   const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
