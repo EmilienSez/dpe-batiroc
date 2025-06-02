@@ -312,7 +312,7 @@ function creationCarteDPE1(donnees, index) {
   const cardPAdresseBrut = document.createElement('p');
 
   // Changement des classes pour Front : 
-  cardDivDPE.className = "w-full max-w-6xl px-7"
+  cardDivDPE.className = "w-full max-w-6xl px-7l"
   cardADPE.className = "block p-2 border border-black-200 rounded-lg shadow-sm hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700"
   cardADPE.id=`carte_numero_dpe_${index}`
   cardH7.className = "mb-2 text-1xl font-bold tracking-tight text-gray-800 dark:text-white texteQuiDépassePas";

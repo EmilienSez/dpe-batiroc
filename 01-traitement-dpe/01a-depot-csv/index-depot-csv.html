@@ -1,32 +1,33 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Récupération information d'entreprise</title>
-    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="../../../style.css">
     <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
+    <title>Document</title>
 </head>
 
 <body class="bg-[#ccd5ae] quicksand-normal">
     <!-- Barre horizontale -->
     <div class="w-full h-20 bg-[#fffade] flex items-center px-4">
-        <a href="../index.html">
+        <a href="../index-dpe.html">
             <!-- Icône en haut à gauche -->
-            <img src="../static/Home-Logo.png" alt="Logo" class="h-14 w-14">
+            <img src="../../static/Home-Logo.png" alt="Logo" class="h-14 w-14">
         </a>
     </div>
+
     <div class="flex items-center justify-center">
         <div class="mx-auto">
-            <p class="font-bold text-3xl text-center mt-3 mb-2"> Traitement de récupération des Coordonnées GPS</p>
-            <div class="flex items-center justify-center w-full " id="drop-area">
+            <p class="font-bold text-xl text-center mt-3 mb-2"> Traitement de récupération des informations des DPE via Numéro ADEME</p>
+            <div class="flex items-center justify-center w-full" id="drop-area">
                 <label for="csvFile"
                     class="flex flex-col items-center justify-center w-full h-64 border-2 border-[#fffade] border-dashed rounded-lg cursor-pointer bg-[#a5b68d] hover:bg-[#fffade]">
-                    <div class="flex flex-col items-center justify-center pt-5 pb-6">
+                    <div class="flex flex-col items-center justify-center pt-5 pb-6 ">
                         <svg class="w-8 h-8 mb-4 text-black-500 dark:text-black-400" aria-hidden="true"
                             xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -66,8 +67,6 @@
             </div>
         </div>
     </div>
-    <div id="file-info"></div>
-    <pre id="csv-content"></pre>
 
     <script src="script.js"></script>
 </body>
