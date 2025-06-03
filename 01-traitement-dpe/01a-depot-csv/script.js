@@ -108,7 +108,7 @@ async function callBatchAPI(data) {
     resultGetInfoDPE.push(arrayoutputCall);
     await new Promise(resolve => setTimeout(resolve, 100));
   }
-  console.log(resultGetInfoDPE);
+  // console.log(resultGetInfoDPE);
   boutonTelecharger.className = classBoutonActiverTelechargerCSV;
 };
 
@@ -125,7 +125,10 @@ async function getInfoDPE(numeroAdeme) {
       alert('Un problème est survenu, veuillez réessayer plus tard');
     } else {
       let donnees = await requete.json();
+      // console.log(donnees);
       let numDPE = null;
+      let typeDPE = null;
+      let methodeDPE = null;
       let noteDPE = null;
       let noteGES = null;
       let consoDPE = null;
@@ -152,6 +155,8 @@ async function getInfoDPE(numeroAdeme) {
       let consoEnergiePrimaire3 = null;
       if (donnees["total"] == 1) {
         if (donnees["results"][0]["N°DPE"]) { numDPE = donnees["results"][0]["N°DPE"] } else { numDPE = null}
+        if (donnees["results"][0]["Modèle_DPE"]) { typeDPE = donnees["results"][0]["Modèle_DPE"] } else { typeDPE = null}
+        if (donnees["results"][0]["Méthode_du_DPE"]) { methodeDPE = donnees["results"][0]["Méthode_du_DPE"] } else { methodeDPE = null}
         if (donnees["results"][0]["Etiquette_DPE"]) { noteDPE = donnees["results"][0]["Etiquette_DPE"] } else { noteDPE = null}
         if (donnees["results"][0]["Etiquette_GES"]) { noteGES = donnees["results"][0]["Etiquette_GES"] } else { noteGES = null}
         if (donnees["results"][0]["Conso_kWhep/m²/an"]) { consoDPE = donnees["results"][0]["Conso_kWhep/m²/an"] } else { consoDPE = null}
@@ -179,10 +184,10 @@ async function getInfoDPE(numeroAdeme) {
         
         adresseBrut = adresseBrut.replace("\n", " ");
         
-        let arrayLine = [numeroAdeme, numDPE, noteDPE, noteGES, consoDPE, consoGES, dateEtabDPE, dateFinDPE, surfaceUtile, shon, secteurActivite, prdConstruction, anneeConstruction, adresseBrut, typeEnergie1, coutEnergie1, consoEnergieFinale1, consoEnergiePrimaire1, typeEnergie2, coutEnergie2, consoEnergieFinale2, consoEnergiePrimaire2, typeEnergie3, coutEnergie3, consoEnergieFinale3, consoEnergiePrimaire3];
+        let arrayLine = [numeroAdeme, numDPE, typeDPE, methodeDPE, noteDPE, noteGES, consoDPE, consoGES, dateEtabDPE, dateFinDPE, surfaceUtile, shon, secteurActivite, prdConstruction, anneeConstruction, adresseBrut, typeEnergie1, coutEnergie1, consoEnergieFinale1, consoEnergiePrimaire1, typeEnergie2, coutEnergie2, consoEnergieFinale2, consoEnergiePrimaire2, typeEnergie3, coutEnergie3, consoEnergieFinale3, consoEnergiePrimaire3];
         return arrayLine
       } else {
-        let arrayLine = [numeroAdeme, numDPE, noteDPE, noteGES, consoDPE, consoGES, dateEtabDPE, dateFinDPE, surfaceUtile, shon, secteurActivite, prdConstruction, anneeConstruction, adresseBrut, typeEnergie1, coutEnergie1, consoEnergieFinale1, consoEnergiePrimaire1, typeEnergie2, coutEnergie2, consoEnergieFinale2, consoEnergiePrimaire2, typeEnergie3, coutEnergie3, consoEnergieFinale3, consoEnergiePrimaire3];
+        let arrayLine = [numeroAdeme, numDPE, typeDPE, methodeDPE, noteDPE, noteGES, consoDPE, consoGES, dateEtabDPE, dateFinDPE, surfaceUtile, shon, secteurActivite, prdConstruction, anneeConstruction, adresseBrut, typeEnergie1, coutEnergie1, consoEnergieFinale1, consoEnergiePrimaire1, typeEnergie2, coutEnergie2, consoEnergieFinale2, consoEnergiePrimaire2, typeEnergie3, coutEnergie3, consoEnergieFinale3, consoEnergiePrimaire3];
         return arrayLine;
       }
     }
