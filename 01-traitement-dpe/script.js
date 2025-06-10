@@ -1,9 +1,11 @@
 // Définition des variables : 
 const url = "https://api-adresse.data.gouv.fr/search/?q=";
 const urlDPETertiairev2 = "https://data.ademe.fr/data-fair/api/v1/datasets/dpe-v2-tertiaire-2/lines?select=*&q=";
-const urlDPETertiairev1 ="https://data.ademe.fr/data-fair/api/v1/datasets/dpe-tertiaire/lines?select=*&q=";
+const urlDPETertiairev1 = "https://data.ademe.fr/data-fair/api/v1/datasets/dpe-tertiaire/lines?select=*&q=";
 const urlDPENeufv2 = "https://data.ademe.fr/data-fair/api/v1/datasets/dpe02neuf/lines?select=*&q=";
 const urlDPEExistantv2 = "https://data.ademe.fr/data-fair/api/v1/datasets/dpe-v2-logements-existants/lines?select=*&q=";
+const urlAuditEnergetique = "https://data.ademe.fr/data-fair/api/v1/datasets/audit-opendata/lines?q=";
+
 // const urlDPEExistantv1 = "https://data.ademe.fr/data-fair/api/v1/datasets/dpe-france/lines?select=*&q="
 
 
@@ -20,6 +22,7 @@ let classLignePSimple = "block text-black-500 text-lg break-words line-clamp-1"
 let boutonDPETertiaire = document.getElementById('boutonDPETertiaire');
 let boutonLogementNeuf = document.getElementById('boutonLogementNeuf');
 let boutonLogementExistant = document.getElementById('boutonLogementExistant');
+let boutonAuditEnergetique = document.getElementById('boutonAuditEnergétique');
 let boutonAvant2021 = document.getElementById('boutonAvant2021');
 let boutonApres2021 = document.getElementById('boutonApres2021');
 
@@ -27,6 +30,7 @@ let boutonApres2021 = document.getElementById('boutonApres2021');
 boutonDPETertiaire.className = classBoutonActiver
 boutonLogementNeuf.className = classBoutonDesactiver
 boutonLogementExistant.className = classBoutonDesactiver
+boutonAuditEnergetique.className = classBoutonDesactiver
 boutonAvant2021.className = classBoutonDesactiver
 boutonApres2021.className = classBoutonActiver
 let typeAPI = 1
@@ -42,6 +46,29 @@ let city = document.getElementById('city_adr');
 let housenumber = document.getElementById('housenumber_adr');
 let street = document.getElementById('street_adr');
 let context = document.getElementById('context_adr');
+
+let nomColAPIv2Tertiaire = ["Score_BAN","Adresse_brute","Nom__commune_(Brut)","Code_postal_(brut)","N°DPE","Etiquette_DPE","Conso_kWhep/m²/an","Etiquette_GES",
+    "Emission_GES_kgCO2/m²/an","Date_établissement_DPE","Méthode_du_DPE", "Année_construction", "Période_construction", "Secteur_activité", "Surface_(SHON)"
+    , "Surface_utile"];
+
+let nomColAPIv1Tertiaire = ["geo_score", "nom_rue", "commune", "code_postal", "numero_dpe", "classe_consommation_energie", "consommation_energie", 
+    "classe_estimation_ges", "estimation_ges", "date_etablissement_dpe", "nom_methode_dpe", "annee_construction", "annee_construction", "secteur_activite", "shon",
+    "surface_utile"];
+
+let nomColAPIv2Neuf = ["score_ban","adresse_brut","nom_commune_brut","code_postal_brut","numero_dpe","etiquette_dpe","conso_5_usages_par_m2_ef","etiquette_ges",
+    "emission_ges_5_usages_par_m2","date_etablissement_dpe","methode_application_dpe", "Année_construction", "Période_construction","type_batiment",
+    "surface_habitable_immeuble","surface_habitable_logement"
+];
+
+let nomColAPIv2Existant = ["Score_BAN","Adresse_brute","Nom__commune_(BAN)","Code_postal_(brut)","N°DPE","Etiquette_DPE","Conso_5_usages_par_m²_é_primaire",
+    "Etiquette_GES","Emission_GES_5_usages_par_m²","Date_établissement_DPE","Méthode_application_DPE", "Année_construction", "Période_construction","Type_bâtiment"
+    ,"Surface_habitable_logement","Surface_habitable_immeuble"
+];
+
+let nomColAPIv2Audit = ["score_ban","adresse_brut","nom_commune_brut","code_postal_brut","numero_dpe","classe_bilan_dpe","conso_5_usages_m2",
+    "etiquette_ges","emission_ges_5_usages_m2","date_etablissement_audit","methode_application_dpe", "annee_construction", "periode_constuction","Type_bâtiment"
+    ,"surface_habitable_logement","surface_ventilee"
+];
 
 // Gestion de la recherche Unique : 
 let globalData = [];
@@ -146,6 +173,8 @@ function getChoixAPI(typeAPIf, periodeAPIf, geo_idf) {
     urlGetf = `${urlDPENeufv2}${geo_idf}&q_modr=simple&q_fields=Identifiant__BAN`
   } else if (typeAPIf === 3 && periodeAPIf === 2) {
     urlGetf = `${urlDPEExistantv2}${geo_idf}&q_modr=simple&q_fields=Identifiant__BAN`
+  } else if (typeAPIf === 4 && periodeAPIf === 2) {
+    urlGetf = `${urlAuditEnergetique}${geo_idf}&q_modr=simple&q_fields=Identifiant__BAN`
   }
   return urlGetf
 } 
@@ -469,6 +498,7 @@ boutonDPETertiaire.addEventListener('click', (e) => {
   if (boutonDPETertiaire.className != classBoutonActiver) {
     boutonLogementNeuf.className = classBoutonDesactiver;
     boutonLogementExistant.className = classBoutonDesactiver;
+    boutonAuditEnergetique.className  = classBoutonDesactiver;
     boutonDPETertiaire.className = classBoutonActiver;
     typeAPI = 1;
     boutonAvant2021.style.display = 'block';
@@ -480,6 +510,7 @@ boutonLogementNeuf.addEventListener('click', (e) => {
     boutonDPETertiaire.className = classBoutonDesactiver;
     boutonLogementExistant.className  = classBoutonDesactiver;
     boutonLogementNeuf.className  = classBoutonActiver;
+    boutonAuditEnergetique.className  = classBoutonDesactiver;
     boutonAvant2021.style.display = 'none';
     boutonAvant2021.className = classBoutonDesactiver;
     boutonApres2021.className  = classBoutonActiver;
@@ -493,15 +524,28 @@ boutonLogementExistant.addEventListener('click', (e) => {
     boutonDPETertiaire.className = classBoutonDesactiver;
     boutonLogementNeuf.className  = classBoutonDesactiver;
     boutonLogementExistant.className  = classBoutonActiver;
-    boutonLogementExistant.className  = classBoutonActiver;
+    boutonAuditEnergetique.className  = classBoutonDesactiver;
     boutonAvant2021.style.display = 'none';
     boutonAvant2021.className = classBoutonDesactiver;
     boutonApres2021.className  = classBoutonActiver;
     periodeAPI = 2;
     typeAPI = 3;
   } 
-})
+});
 
+boutonAuditEnergetique.addEventListener('click', (e) => {
+  if (boutonAuditEnergetique.className != classBoutonActiver) {
+    boutonDPETertiaire.className = classBoutonDesactiver;
+    boutonLogementNeuf.className  = classBoutonDesactiver;
+    boutonLogementExistant.className  = classBoutonDesactiver;
+    boutonAuditEnergetique.className  = classBoutonActiver;
+    boutonAvant2021.style.display = 'none';
+    boutonAvant2021.className = classBoutonDesactiver;
+    boutonApres2021.className  = classBoutonActiver;
+    periodeAPI = 2;
+    typeAPI = 4;
+  } 
+})
 boutonAvant2021.addEventListener('click', (e) => {
   if (boutonAvant2021.className != classBoutonActiver) {
     boutonApres2021.className = classBoutonDesactiver;

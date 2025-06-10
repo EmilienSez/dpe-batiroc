@@ -6,7 +6,7 @@ Application Web static permettant de faire des call API
 ## Fonctionnalités à ajouter :
 
 ### 1 - Recherche DPE :
-- [ ] Ajouter une page pour faire une recherche par N°ADEME
+- [x] Ajouter une page pour faire une recherche par N°ADEME
 - [ ] Ajouter la fonctionnalité permettant de changer d'API
 - [ ] Régler le Bug des DPE : ils n'apparaissent pas tous (à partir du 10ème)
 - [ ] Lorsque qu'il y a plus de 12 DPE pour une adresse on ne récupère que les 12 premiers (lié au fonctionnement de l'API) exemple d'adresse : 50 Rue du Disque 75013 Paris
