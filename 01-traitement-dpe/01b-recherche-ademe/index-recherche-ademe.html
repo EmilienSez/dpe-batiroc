@@ -1,31 +1,23 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Récupération DPE</title>
-    <link rel="stylesheet" href="../output.css">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../../output.css">
     <!-- <script src="https://unpkg.com/@tailwindcss/browser@4"></script> -->
-    <!-- <meta name="msapplication-TileImage" content="https://www.batirocbpl.fr/wp-content/uploads/2023/03/cropped-vignette-onglet-270x270.png"> -->
+    <title>Document</title>
 </head>
 
 <body class="bg-[#ccd5ae] quicksand-normal">
     <!-- Barre horizontale -->
     <div class="w-full h-20 bg-[#fffade] flex items-center px-4">
-        <a href="../index.html">
+        <a href="../index-dpe.html">
             <!-- Icône en haut à gauche -->
-            <img src="../static/Home-Logo.png" alt="Logo" class="h-14 w-14">
-        </a>
-        <a href="./01b-recherche-ademe/index-recherche-ademe.html">
-            <p class="text-center mx-10 font-bold text-2xl">RECHERCHE VIA N° ADEME</p>
-        </a>
-        <a href="./01a-depot-csv/index-depot-csv.html">
-            <p class="text-center mx-10 font-bold text-2xl">DEPOT DE CSV</p>
+            <img src="../../static/Home-Logo.png" alt="Logo" class="h-14 w-14">
         </a>
     </div>
-    <p class="font-bold text-3xl text-center mt-3 mb-2"> Traitement de récupération des DPE</p>
+    <p class="font-bold text-3xl text-center mt-3 mb-2"> Récupération des DPE via N° ADEME</p>
     <div class="mt-8 flex justify-center">
 
         <div class="bg-[#a5b68d] rounded-2xl overflow-hidden shadow-md items-center p-2 w-[650px]">
@@ -53,10 +45,10 @@
             </div>
         </div>
     </div>
-    <p class="font-bold text-xl text-center mt-6 mb-1"> Recherche via une adresse : </p>
+    <p class="font-bold text-xl text-center mt-6 mb-1"> Recherche via numéro ADEME : </p>
     <div class="flex flex-col items-center justify-center mt-2">
         <!-- Barre de recherche -->
-        <input id="myInput" type="text" placeholder="Veuillez renseigner une adresse..."
+        <input id="myInput" type="text" placeholder="Veuillez renseigner un numéro ADEME..."
             class="w-140 p-3 bg-[#fffade] border-3 border-yellow-400 rounded-lg text-lg focus:outline-none focus:ring-2 focus:ring-yellow-400">
 
         <!-- Conteneur des boutons -->
@@ -79,8 +71,7 @@
     </div>
 
     <div class="max-w-sm mx-auto">
-        <h1 class="block mb-2 mt-4 font-bold text-2xl text-center underline text-gray-900 dark:text-white"> Liste
-            des Adresses Récupérées :
+        <h1 class="block mb-2 mt-4 font-bold text-2xl text-center underline text-gray-900 dark:text-white"> DPE Récupéré :
         </h1>
     </div>
     <div id="conteneur-des-cartes">
@@ -98,5 +89,6 @@
     <script src="script.js"></script>
     <!-- Met à jour à chaque actualisation du site -->
 </body>
+
 
 </html>
