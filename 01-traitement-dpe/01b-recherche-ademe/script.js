@@ -186,7 +186,7 @@ function creationCarteDPE(donnees, listeColonne, index) {
     cardImgDPE.src = "../../static/DPE.png"
 
     // Changement du texte :
-    cardH1Titre.textContent = `DPE n°1 : ${Math.round(donnees.results[index][listeColonne[0]]*100)} % - ${donnees.results[index][listeColonne[1]]}, ${donnees.results[index][listeColonne[2]]} ${donnees.results[index][listeColonne[3]]}`;
+    cardH1Titre.textContent = `DPE n°${index+1} : ${Math.round(donnees.results[index][listeColonne[0]]*100)} % - ${donnees.results[index][listeColonne[1]]}, ${donnees.results[index][listeColonne[2]]} ${donnees.results[index][listeColonne[3]]}`;
     cardPTitreDoneesSaisie.textContent = `N° ADEME : ${donnees.results[index][listeColonne[4]]}`;
     cardPEtiquetteDPE.textContent = `Etiquette DPE : ${donnees.results[index][listeColonne[5]]} - ${donnees.results[index][listeColonne[6]]} kWhep/m²/an`;
     cardPEtiquetteGES.textContent = `Etiquette GES : ${donnees.results[index][listeColonne[7]]} - ${donnees.results[index][listeColonne[8]]} kgCO2/m²/an`;
