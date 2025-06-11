@@ -178,7 +178,7 @@ async function getInfoDPE(numeroAdeme) {
         if (donnees["results"][0]["Conso_é_finale_énergie_n°2"]) { consoEnergieFinale2 = donnees["results"][0]["Conso_é_finale_énergie_n°2"] } else { consoEnergieFinale2 = null}
         if (donnees["results"][0]["Conso_é_primaire_énergie_n°2"]) { consoEnergiePrimaire2 = donnees["results"][0]["Conso_é_primaire_énergie_n°2"] } else { consoEnergiePrimaire2 = null}
         if (donnees["results"][0]["Type_énergie_n°3"]) { typeEnergie3 = donnees["results"][0]["Type_énergie_n°3"] } else { typeEnergie3 = null}
-        if (donnees["results"][0]["Frais_annuel_énergie_n°3"]) { typeEnergie3 = donnees["results"][0]["Frais_annuel_énergie_n°3"] } else { typeEnergie3 = null}
+        if (donnees["results"][0]["Frais_annuel_énergie_n°3"]) { coutEnergie3 = donnees["results"][0]["Frais_annuel_énergie_n°3"] } else { coutEnergie3 = null}
         if (donnees["results"][0]["Conso_é_finale_énergie_n°3"]) { consoEnergieFinale3 = donnees["results"][0]["Conso_é_finale_énergie_n°3"] } else { consoEnergieFinale3 = null}
         if (donnees["results"][0]["Conso_é_primaire_énergie_n°3"]) { consoEnergiePrimaire3 = donnees["results"][0]["Conso_é_primaire_énergie_n°3"] } else { consoEnergiePrimaire3 = null}
         
