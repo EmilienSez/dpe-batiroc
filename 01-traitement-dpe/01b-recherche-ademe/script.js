@@ -4,6 +4,13 @@ const urlDPENeufv2 = "https://data.ademe.fr/data-fair/api/v1/datasets/dpe02neuf/
 const urlDPEExistantv2 = "https://data.ademe.fr/data-fair/api/v1/datasets/dpe-v2-logements-existants/lines?select=*&q=";
 const urlAuditEnergetique = "https://data.ademe.fr/data-fair/api/v1/datasets/audit-opendata/lines?q=";
 
+// Liste des DPE pour faire des tests :     
+// DPE Tertiaire v2 : 2363T1680837R         |
+// DPE Tertiaire v1 : 1330V8000001A         |
+// DPE Logement Neuf : 2481N0172887C        |
+// DPE Logement Existant : 2331E0473998Z    |
+// DPE Audit Energétique :  A23770111876U   |
+
 // Menue de paramètrage : 
 let classBoutonActiver = "w-60 h-13 text-lg text-center mb-2 mt-2 px-2 py-2 border-4 border-yellow-400 text-gray-700 bg-yellow-400 rounded-xl hover:bg-yellow-400 transition";
 let classBoutonDesactiver = "w-60 h-13 text-lg text-center mb-2 mt-2 px-2 py-2 border-4 border-yellow-400 text-gray-700 bg-[#fffade] rounded-xl hover:bg-yellow-400 transition";

@@ -14,14 +14,6 @@
     display: none;
 }
 
-/* body {
-    background: lightgrey
-} */
-
-.cacherElement {
-    display: none;
-}
-
 .container {
     width: 200px;
     height: 120px;
@@ -52,7 +44,7 @@
 }
 
 .content.show {
-    max-height: 2000px; /* Ajustez cette valeur en fonction de la hauteur de votre contenu */
+    max-height: 100% ; /* Ajustez cette valeur en fonction de la hauteur de votre contenu*/
     opacity: 1; /* Rendre visible */
 }
 
