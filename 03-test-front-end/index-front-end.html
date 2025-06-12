@@ -17,15 +17,25 @@
             <img src="../static/Home-Logo.png" alt="Logo" class="h-16 w-16">
         </a>
     </div>
-
+    <div id="div-traitement" class="flex flex-col items-center justify-center">
+        <div id="file-info"></div>
+        <p class="font-bold text-xl mt-3 mb-2"> Progression du traitement : </p>
+        <div class="w-120 bg-[#fffade] rounded-full flex items-center border-[#fffade] border-4" id="barre">
+            <div id="progress-bar"
+                class="bg-[#a5b68d] text-xs font-medium text-gray-600 text-center p-0.5 leading-none rounded-full w-[]">
+                0 %</div>
+        </div>
+    </div>
+    <br>
     <div class="flex justify-center">
         <a href="#">
-            <div class="border-3 border-[#a5b68d] hover:bg-[#a5b68d] rounded-2xl overflow-hidden shadow-md duration-300">
-                    <p class="block text-[#fffade] text-md break-words line-clamp-2 p-2 text-5xl text-center"> + </p>
+            <div
+                class="border-3 border-[#a5b68d] hover:bg-[#a5b68d] rounded-2xl overflow-hidden shadow-md duration-300">
+                <p class="block text-[#fffade] text-md break-words line-clamp-2 p-2 text-5xl text-center"> + </p>
             </div>
         </a>
     </div>
-        <div class="mt-8 flex justify-center">
+    <div class="mt-8 flex justify-center">
         <a href="02-coordonnees-gps/index-gps.html">
             <div class="bg-[#a5b68d] rounded-2xl overflow-hidden shadow-md flex items-center p-2 w-[464px]h-35 ">
                 <img src="../static/Localisation.png" alt="" class="w-16 h-16 mr-2 object-cover hidden sm:block">
@@ -65,93 +75,110 @@
             </div>
         </div>
     </div>
-<div class="dropdown">
-    <div class="mt-8 flex justify-center">
-        <div
-            class="bg-[#a5b68d] rounded-2xl overflow-hidden shadow-md flex flex-col p-2 w-[60%] h-auto border-4 border-[#fffade]">
-            <h1 class="text-center font-bold text-2xl ">Adresse : 180 Route de Vannes, 44000 Nantes</h1>
-            <h3 class="text-center font-bold text-xl mb-2">Score de correspondance : 0.97</h3>
-            <div class="flex items-center">
-                <img src="../static/Localisation.png" alt="" class="w-20 h-20 mr-2 object-cover hidden sm:block">
-                <div class="flex-1">
-                    <p class="block text-black-500 text-lg break-words line-clamp-1">Type d'adresse : Housenumber</p>
-                    <p class="block text-black-500 text-lg break-words line-clamp-1">Voie : 180 Route de Vannes</p>
-                    <p class="block text-black-500 text-lg break-words line-clamp-1">Ville : Orvault</p>
+    <div class="dropdown">
+        <div class="mt-8 flex justify-center">
+            <div
+                class="bg-[#a5b68d] rounded-2xl overflow-hidden shadow-md flex flex-col p-2 w-[60%] h-auto border-4 border-[#fffade]">
+                <h1 class="text-center font-bold text-2xl ">Adresse : 180 Route de Vannes, 44000 Nantes</h1>
+                <h3 class="text-center font-bold text-xl mb-2">Score de correspondance : 0.97</h3>
+                <div class="flex items-center">
+                    <img src="../static/Localisation.png" alt="" class="w-20 h-20 mr-2 object-cover hidden sm:block">
+                    <div class="flex-1">
+                        <p class="block text-black-500 text-lg break-words line-clamp-1">Type d'adresse : Housenumber
+                        </p>
+                        <p class="block text-black-500 text-lg break-words line-clamp-1">Voie : 180 Route de Vannes</p>
+                        <p class="block text-black-500 text-lg break-words line-clamp-1">Ville : Orvault</p>
+                    </div>
+                    <div class="m-2 flex-1">
+                        <p class="block text-black-500 text-lg break-words line-clamp-1">Département : 44, Loire
+                            Atlantique
+                        </p>
+                        <p class="block text-black-500 text-lg break-words line-clamp-1">Région : Pays de la Loire</p>
+                    </div>
+                    <a href="#" class="toggleButton">
+                        <img src="../static/arrow.png" alt=""
+                            class="w-4 h-4 mt-17 mr-2 object-cover hidden sm:block menu">
+                    </a>
                 </div>
-                <div class="m-2 flex-1">
-                    <p class="block text-black-500 text-lg break-words line-clamp-1">Département : 44, Loire Atlantique
-                    </p>
-                    <p class="block text-black-500 text-lg break-words line-clamp-1">Région : Pays de la Loire</p>
-                </div>
-                <a href="#" class="toggleButton">
-                    <img src="../static/arrow.png" alt="" class="w-4 h-4 mt-17 mr-2 object-cover hidden sm:block menu">
-                </a>
             </div>
         </div>
+        <div class="content hiddenessaie">
+            <ul>
+                <li>
+                    <div class="flex justify-center">
+                        <div
+                            class="bg-[#a5b68d] ml-[5%] rounded-2xl overflow-hidden shadow-md flex flex-col p-2 w-[55%] h-auto border-4 border-[#fffade]">
+                            <h1 class="text-center font-bold text-2xl mb-2">DPE n°X : 0.98 - 21, rue des orangers,
+                                Nantes 44000
+                            </h1>
+                            <div class="flex items-center">
+                                <img src="../static/DPE.png" alt="" class="w-16 h-16 mr-2 object-cover hidden sm:block">
+                                <div
+                                    class="bg-[#fffade] rounded-2xl overflow-hidden flex-1 items-center p-2 border-2 border-yellow-400">
+                                    <p class="font-bold text-xl text-center line-clamp-1">Numéro ADEME : 125325211</p>
+                                    <p class="block text-black-500 text-lg break-words line-clamp-1">Etiquette DPE : A -
+                                        58,4
+                                    </p>
+                                    <p class="block text-black-500 text-lg break-words line-clamp-1">Etiquette GES : D -
+                                        13,2
+                                    </p>
+                                    <p class="block text-black-500 text-lg break-words line-clamp-1">Date
+                                        d'établissement du DPE
+                                        : 01/01/2000</p>
+                                </div>
+                                <div class="m-2 flex-1">
+                                    <p class="block text-black-500 text-lg break-words line-clamp-1">Méthode du DPE :
+                                    </p>
+                                    <p class="block text-black-500 text-lg break-words line-clamp-1">Secteur d'activité
+                                        :</p>
+                                    <p class="block text-black-500 text-lg break-words line-clamp-1">Année de
+                                        construction :</p>
+                                    <p class="block text-black-500 text-lg break-words line-clamp-1">Surface SHON :</p>
+                                    <p class="block text-black-500 text-lg break-words line-clamp-1">Surface Utile :</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="flex justify-center">
+                        <div
+                            class="bg-[#a5b68d] ml-[5%] rounded-2xl overflow-hidden shadow-md flex flex-col p-2 w-[55%] h-auto border-4 border-[#fffade]">
+                            <h1 class="text-center font-bold text-2xl mb-2">DPE n°X : 0.98 - 21, rue des orangers,
+                                Nantes 44000
+                            </h1>
+                            <div class="flex items-center">
+                                <img src="../static/DPE.png" alt="" class="w-16 h-16 mr-2 object-cover hidden sm:block">
+                                <div
+                                    class="bg-[#fffade] rounded-2xl overflow-hidden flex-1 items-center p-2 border-2 border-yellow-400">
+                                    <p class="font-bold text-xl text-center line-clamp-1">Numéro ADEME : 125325211</p>
+                                    <p class="block text-black-500 text-lg break-words line-clamp-1">Etiquette DPE : A -
+                                        58,4
+                                    </p>
+                                    <p class="block text-black-500 text-lg break-words line-clamp-1">Etiquette GES : D -
+                                        13,2
+                                    </p>
+                                    <p class="block text-black-500 text-lg break-words line-clamp-1">Date
+                                        d'établissement du DPE
+                                        : 01/01/2000</p>
+                                </div>
+                                <div class="m-2 flex-1">
+                                    <p class="block text-black-500 text-lg break-words line-clamp-1">Méthode du DPE :
+                                    </p>
+                                    <p class="block text-black-500 text-lg break-words line-clamp-1">Secteur d'activité
+                                        :</p>
+                                    <p class="block text-black-500 text-lg break-words line-clamp-1">Année de
+                                        construction :</p>
+                                    <p class="block text-black-500 text-lg break-words line-clamp-1">Surface SHON :</p>
+                                    <p class="block text-black-500 text-lg break-words line-clamp-1">Surface Utile :</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
     </div>
-    <div class="content hiddenessaie">
-    <ul>
-        <li>
-            <div class="flex justify-center">
-                <div
-                    class="bg-[#a5b68d] ml-[5%] rounded-2xl overflow-hidden shadow-md flex flex-col p-2 w-[55%] h-auto border-4 border-[#fffade]">
-                    <h1 class="text-center font-bold text-2xl mb-2">DPE n°X : 0.98 - 21, rue des orangers, Nantes 44000
-                    </h1>
-                    <div class="flex items-center">
-                        <img src="../static/DPE.png" alt="" class="w-16 h-16 mr-2 object-cover hidden sm:block">
-                        <div
-                            class="bg-[#fffade] rounded-2xl overflow-hidden flex-1 items-center p-2 border-2 border-yellow-400">
-                            <p class="font-bold text-xl text-center line-clamp-1">Numéro ADEME : 125325211</p>
-                            <p class="block text-black-500 text-lg break-words line-clamp-1">Etiquette DPE : A - 58,4
-                            </p>
-                            <p class="block text-black-500 text-lg break-words line-clamp-1">Etiquette GES : D - 13,2
-                            </p>
-                            <p class="block text-black-500 text-lg break-words line-clamp-1">Date d'établissement du DPE
-                                : 01/01/2000</p>
-                        </div>
-                        <div class="m-2 flex-1">
-                            <p class="block text-black-500 text-lg break-words line-clamp-1">Méthode du DPE :</p>
-                            <p class="block text-black-500 text-lg break-words line-clamp-1">Secteur d'activité :</p>
-                            <p class="block text-black-500 text-lg break-words line-clamp-1">Année de construction :</p>
-                            <p class="block text-black-500 text-lg break-words line-clamp-1">Surface SHON :</p>
-                            <p class="block text-black-500 text-lg break-words line-clamp-1">Surface Utile :</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </li>
-        <li>
-            <div class="flex justify-center">
-                <div
-                    class="bg-[#a5b68d] ml-[5%] rounded-2xl overflow-hidden shadow-md flex flex-col p-2 w-[55%] h-auto border-4 border-[#fffade]">
-                    <h1 class="text-center font-bold text-2xl mb-2">DPE n°X : 0.98 - 21, rue des orangers, Nantes 44000
-                    </h1>
-                    <div class="flex items-center">
-                        <img src="../static/DPE.png" alt="" class="w-16 h-16 mr-2 object-cover hidden sm:block">
-                        <div
-                            class="bg-[#fffade] rounded-2xl overflow-hidden flex-1 items-center p-2 border-2 border-yellow-400">
-                            <p class="font-bold text-xl text-center line-clamp-1">Numéro ADEME : 125325211</p>
-                            <p class="block text-black-500 text-lg break-words line-clamp-1">Etiquette DPE : A - 58,4
-                            </p>
-                            <p class="block text-black-500 text-lg break-words line-clamp-1">Etiquette GES : D - 13,2
-                            </p>
-                            <p class="block text-black-500 text-lg break-words line-clamp-1">Date d'établissement du DPE
-                                : 01/01/2000</p>
-                        </div>
-                        <div class="m-2 flex-1">
-                            <p class="block text-black-500 text-lg break-words line-clamp-1">Méthode du DPE :</p>
-                            <p class="block text-black-500 text-lg break-words line-clamp-1">Secteur d'activité :</p>
-                            <p class="block text-black-500 text-lg break-words line-clamp-1">Année de construction :</p>
-                            <p class="block text-black-500 text-lg break-words line-clamp-1">Surface SHON :</p>
-                            <p class="block text-black-500 text-lg break-words line-clamp-1">Surface Utile :</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </li>
-    </ul>
-</div>
-</div>
     <div class="mt-8 flex justify-center">
 
         <div class="bg-[#a5b68d] rounded-2xl overflow-hidden shadow-md items-center p-2 w-[650px]">
@@ -239,7 +266,7 @@
             </ul>
         </div>
     </div>
-    
+
     <div class="dropdown">
         <button class="toggleButton">Menu 2</button>
         <div class="content hiddenessaie">

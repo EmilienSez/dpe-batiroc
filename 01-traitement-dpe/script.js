@@ -53,25 +53,39 @@ let context = document.getElementById('context_adr');
 
 let nomColAPIv2Tertiaire = ["Score_BAN", "Adresse_brute", "Nom__commune_(Brut)", "Code_postal_(brut)", "N°DPE", "Etiquette_DPE", "Conso_kWhep/m²/an", "Etiquette_GES",
   "Emission_GES_kgCO2/m²/an", "Date_établissement_DPE", "Méthode_du_DPE", "Année_construction", "Période_construction", "Secteur_activité", "Surface_(SHON)"
-  , "Surface_utile"];
+  ,"Surface_utile","Modèle_DPE","Date_fin_validité_DPE","Type_énergie_n°1","Frais_annuel_énergie_n°1","Conso_é_finale_énergie_n°1","Conso_é_primaire_énergie_n°1"
+  ,"Type_énergie_n°2","Frais_annuel_énergie_n°2","Conso_é_finale_énergie_n°2","Conso_é_primaire_énergie_n°2"
+  ,"Type_énergie_n°3","Frais_annuel_énergie_n°3","Conso_é_finale_énergie_n°3","Conso_é_primaire_énergie_n°3"]
 
 let nomColAPIv1Tertiaire = ["geo_score", "nom_rue", "commune", "code_postal", "numero_dpe", "classe_consommation_energie", "consommation_energie",
   "classe_estimation_ges", "estimation_ges", "date_etablissement_dpe", "nom_methode_dpe", "annee_construction", "annee_construction", "secteur_activite", "shon",
-  "surface_utile"];
+  "surface_utile","tr001_modele_dpe_fichier_vierge","Date_fin_validité_DPE","Type_énergie_n°1","Frais_annuel_énergie_n°1","Conso_é_finale_énergie_n°1","Conso_é_primaire_énergie_n°1"
+  ,"Type_énergie_n°2","Frais_annuel_énergie_n°2","Conso_é_finale_énergie_n°2","Conso_é_primaire_énergie_n°2"
+  ,"Type_énergie_n°3","Frais_annuel_énergie_n°3","Conso_é_finale_énergie_n°3","Conso_é_primaire_énergie_n°3"];
 
 let nomColAPIv2Neuf = ["score_ban", "adresse_brut", "nom_commune_brut", "code_postal_brut", "numero_dpe", "etiquette_dpe", "conso_5_usages_par_m2_ef", "etiquette_ges",
   "emission_ges_5_usages_par_m2", "date_etablissement_dpe", "methode_application_dpe", "Année_construction", "Période_construction", "type_batiment",
-  "surface_habitable_immeuble", "surface_habitable_logement"
+  "surface_habitable_immeuble", "surface_habitable_logement","modele_dpe","date_fin_validite_dpe"
+  ,"type_energie_n1","cout_total_5_usages_energie_n1","conso_5_usages_ef_energie_n1","conso_5_usages_ep"
+  ,"type_energie_n2","cout_total_5_usages_energie_n2","conso_5_usages_ef_energie_n2","conso_5_usages_ep"
+  ,"type_energie_n3","cout_total_5_usages_energie_n3","conso_5_usages_ef_energie_n3","conso_5_usages_ep"
 ];
 
 let nomColAPIv2Existant = ["Score_BAN", "Adresse_brute", "Nom__commune_(BAN)", "Code_postal_(brut)", "N°DPE", "Etiquette_DPE", "Conso_5_usages_par_m²_é_primaire",
   "Etiquette_GES", "Emission_GES_5_usages_par_m²", "Date_établissement_DPE", "Méthode_application_DPE", "Année_construction", "Période_construction", "Type_bâtiment"
   , "Surface_habitable_logement", "Surface_habitable_immeuble"
+  ,"Modèle_DPE","Date_fin_validité_DPE","Type_énergie_n°1","Frais_annuel_énergie_n°1","Conso_é_finale_énergie_n°1","Conso_é_primaire_énergie_n°1"
+  ,"Type_énergie_n°2","Frais_annuel_énergie_n°2","Conso_é_finale_énergie_n°2","Conso_é_primaire_énergie_n°2"
+  ,"Type_énergie_n°3","Frais_annuel_énergie_n°3","Conso_é_finale_énergie_n°3","Conso_é_primaire_énergie_n°3"
 ];
+
 
 let nomColAPIv2Audit = ["score_ban", "adresse_brut", "nom_commune_brut", "code_postal_brut", "numero_dpe", "classe_bilan_dpe", "conso_5_usages_m2",
   "etiquette_ges", "emission_ges_5_usages_m2", "date_etablissement_audit", "methode_application_dpe", "annee_construction", "periode_constuction", "Type_bâtiment"
-  , "surface_habitable_logement", "surface_ventilee"
+  , "surface_habitable_logement", "surface_ventilee","categorie_scenario","date_fin_validite_audit"
+  ,"type_energie_n1","cout_5_usages_energie_n1","conso_ef_5_usages_energie_n1","ep_conso_5_usages"
+  ,"type_energie_n2","cout_5_usages_energie_n2","conso_ef_5_usages_energie_n2","ep_conso_5_usages"
+  ,"type_energie_n3","cout_5_usages_energie_n3","conso_ef_5_usages_energie_n3","ep_conso_5_usages"
 ];
 
 // Gestion de la recherche Unique : 
@@ -208,9 +222,12 @@ function traitementDataAdresse(data, input) {
 
 // dataAdresseDPE = traitementDataDPE(donnees.results[index], dataAdresse)
 // globalData.push(dataAdresseDPE);
-function traitementDataDPE(data, dataprev, nbrDPE) {
-  dataprev.push(nbrDPE);
-  console.log(dataprev)
+function traitementDataDPE(data, dataprev, nbrDPE, liste) {
+  datasended = []
+  datasended.push(dataprev[0])
+  datasended.push(dataprev[1])
+  datasended.push(dataprev[2])
+  datasended.push(nbrDPE);
   let numDPE ;
   let typeDPE ;
   let methodeDPE ;
@@ -239,66 +256,97 @@ function traitementDataDPE(data, dataprev, nbrDPE) {
   let consoEnergieFinale3 ;
   let consoEnergiePrimaire3 ;
 
-  if (data["N°DPE"]) {                        numDPE                  = data["N°DPE"] } else { numDPE = null}
-  if (data["Modèle_DPE"]) {                   typeDPE                 = data["Modèle_DPE"] } else { typeDPE = null}
-  if (data["Méthode_du_DPE"]) {               methodeDPE              = data["Méthode_du_DPE"] } else { methodeDPE = null}
-  if (data["Etiquette_DPE"]) {                noteDPE                 = data["Etiquette_DPE"] } else { noteDPE = null}
-  if (data["Etiquette_GES"]) {                noteGES                 = data["Etiquette_GES"] } else { noteGES = null}
-  if (data["Conso_kWhep/m²/an"]) {            consoDPE                = data["Conso_kWhep/m²/an"] } else { consoDPE = null}
-  if (data["Emission_GES_kgCO2/m²/an"]) {     consoGES                = data["Emission_GES_kgCO2/m²/an"] } else { consoGES = null}
-  if (data["Date_établissement_DPE"]) {       dateEtabDPE             = data["Date_établissement_DPE"] } else { dateEtabDPE = null}
-  if (data["Date_fin_validité_DPE"]) {        dateFinDPE              = data["Date_fin_validité_DPE"] } else { dateFinDPE = null}
-  if (data["Surface_utile"]) {                surfaceUtile            = data["Surface_utile"] } else { surfaceUtile = null}
-  if (data["Surface_(SHON)"]) {               shon                    = data["Surface_(SHON)"] } else { shon = null}
-  if (data["Secteur_activité"]) {             secteurActivite         = data["Secteur_activité"] } else { secteurActivite = null}
-  if (data["Période_construction"]) {         prdConstruction         = data["Période_construction"] } else { prdConstruction = null}
-  if (data["Année_construction"]) {           anneeConstruction       = data["Année_construction"] } else { anneeConstruction = null}
-  if (data["Adresse_brute"]) {                adresseBrut             = data["Adresse_brute"] + " " + data["Code_postal_(brut)"] + " " + data["Nom__commune_(Brut)"] } else { adresseBrut = null}
-  if (data["Type_énergie_n°1"]) {             typeEnergie1            = data["Type_énergie_n°1"] } else { typeEnergie1 = null}
-  if (data["Frais_annuel_énergie_n°1"]) {     coutEnergie1            = data["Frais_annuel_énergie_n°1"] } else { coutEnergie1 = null}
-  if (data["Conso_é_finale_énergie_n°1"]) {   consoEnergieFinale1     = data["Conso_é_finale_énergie_n°1"] } else { consoEnergieFinale1 = null}
-  if (data["Conso_é_primaire_énergie_n°1"]) { consoEnergiePrimaire1   = data["Conso_é_primaire_énergie_n°1"] } else { consoEnergiePrimaire1 = null}
-  if (data["Type_énergie_n°2"]) {             typeEnergie2            = data["Type_énergie_n°2"] } else { typeEnergie2 = null}
-  if (data["Frais_annuel_énergie_n°2"]) {     coutEnergie2            = data["Frais_annuel_énergie_n°2"] } else { coutEnergie2 = null}
-  if (data["Conso_é_finale_énergie_n°2"]) {   consoEnergieFinale2     = data["Conso_é_finale_énergie_n°2"] } else { consoEnergieFinale2 = null}
-  if (data["Conso_é_primaire_énergie_n°2"]) { consoEnergiePrimaire2   = data["Conso_é_primaire_énergie_n°2"] } else { consoEnergiePrimaire2 = null}
-  if (data["Type_énergie_n°3"]) {             typeEnergie3            = data["Type_énergie_n°3"] } else { typeEnergie3 = null}
-  if (data["Frais_annuel_énergie_n°3"]) {     coutEnergie3            = data["Frais_annuel_énergie_n°3"] } else { coutEnergie3 = null}
-  if (data["Conso_é_finale_énergie_n°3"]) {   consoEnergieFinale3     = data["Conso_é_finale_énergie_n°3"] } else { consoEnergieFinale3 = null}
-  if (data["Conso_é_primaire_énergie_n°3"]) { consoEnergiePrimaire3   = data["Conso_é_primaire_énergie_n°3"] } else { consoEnergiePrimaire3 = null}
+  if (data[liste[4]])  {                     numDPE                 = data[liste[4]] } else { numDPE = null}
+  if (data[liste[16]]) {                typeDPE                 = data[liste[16]] } else { typeDPE = null}
+  if (data[liste[10]]) {            methodeDPE              = data[liste[10]] } else { methodeDPE = null}
+  if (data[liste[5]])  {             noteDPE                 = data[liste[5]] } else { noteDPE = null}
+  if (data[liste[7]])  {             noteGES                 = data[liste[7]] } else { noteGES = null}
+  if (data[liste[6]])  {         consoDPE                = data[liste[6]] } else { consoDPE = null}
+  if (data[liste[8]])  {  consoGES                = data[liste[8]] } else { consoGES = null}
+  if (data[liste[9]])  { dateEtabDPE             = data[liste[9]] } else { dateEtabDPE = null}
+  if (data[liste[17]]) {  dateFinDPE              = data[liste[17]] } else { dateFinDPE = null}
+  if (data[liste[15]]) {          surfaceUtile            = data[liste[15]] } else { surfaceUtile = null}
+  if (data[liste[14]]) { shon                    = data[liste[14]] } else { shon = null}
+  if (data[liste[13]]) { secteurActivite         = data[liste[13]] } else { secteurActivite = null}
+  if (data[liste[12]]) { prdConstruction         = data[liste[12]] } else { prdConstruction = null}
+  if (data[liste[11]]) { anneeConstruction       = data[liste[11]] } else { anneeConstruction = null}
+  if (data[liste[1]])  { adresseBrut             = data[liste[1]] + " " + data[liste[3]] + " " + data[liste[2]] } else { adresseBrut = null}
+  if (data[liste[18]]) { typeEnergie1            = data[liste[18]] } else { typeEnergie1 = null}
+  if (data[liste[19]]) { coutEnergie1            = data[liste[19]] } else { coutEnergie1 = null}
+  if (data[liste[20]]) { consoEnergieFinale1     = data[liste[20]] } else { consoEnergieFinale1 = null}
+  if (data[liste[21]]) { consoEnergiePrimaire1   = data[liste[21]] } else { consoEnergiePrimaire1 = null}
+  if (data[liste[22]]) { typeEnergie2            = data[liste[22]] } else { typeEnergie2 = null}
+  if (data[liste[23]]) { coutEnergie2            = data[liste[23]] } else { coutEnergie2 = null}
+  if (data[liste[24]]) { consoEnergieFinale2     = data[liste[24]] } else { consoEnergieFinale2 = null}
+  if (data[liste[25]]) { consoEnergiePrimaire2   = data[liste[25]] } else { consoEnergiePrimaire2 = null}
+  if (data[liste[26]]) { typeEnergie3            = data[liste[26]] } else { typeEnergie3 = null}
+  if (data[liste[27]]) { coutEnergie3            = data[liste[27]] } else { coutEnergie3 = null}
+  if (data[liste[28]]) { consoEnergieFinale3     = data[liste[28]] } else { consoEnergieFinale3 = null}
+  if (data[liste[29]]) { consoEnergiePrimaire3   = data[liste[29]] } else { consoEnergiePrimaire3 = null}
         
   adresseBrut = adresseBrut.replace("\n", " ");
 
-  dataprev.push(numDPE) ;
-  dataprev.push(typeDPE) ;
-  dataprev.push(methodeDPE) ;
-  dataprev.push(noteDPE) ;
-  dataprev.push(noteGES) ;
-  dataprev.push(consoDPE) ;
-  dataprev.push(consoGES) ;
-  dataprev.push(dateEtabDPE) ;
-  dataprev.push(dateFinDPE) ;
-  dataprev.push(surfaceUtile) ;
-  dataprev.push(shon) ;
-  dataprev.push(secteurActivite) ;
-  dataprev.push(prdConstruction) ;
-  dataprev.push(anneeConstruction) ;
-  dataprev.push(adresseBrut) ;
-  dataprev.push(typeEnergie1) ;
-  dataprev.push(coutEnergie1) ;
-  dataprev.push(consoEnergieFinale1) ;
-  dataprev.push(consoEnergiePrimaire1) ;
-  dataprev.push(typeEnergie2) ;
-  dataprev.push(coutEnergie2) ;
-  dataprev.push(consoEnergieFinale2) ;
-  dataprev.push(consoEnergiePrimaire2) ;
-  dataprev.push(typeEnergie3) ;
-  dataprev.push(coutEnergie3) ;
-  dataprev.push(consoEnergieFinale3) ;
-  dataprev.push(consoEnergiePrimaire3) ;
-  return dataprev
-}
+  datasended.push(numDPE) ;
+  datasended.push(typeDPE) ;
+  datasended.push(methodeDPE) ;
+  datasended.push(noteDPE) ;
+  datasended.push(noteGES) ;
+  datasended.push(consoDPE) ;
+  datasended.push(consoGES) ;
+  datasended.push(dateEtabDPE) ;
+  datasended.push(dateFinDPE) ;
+  datasended.push(surfaceUtile) ;
+  datasended.push(shon) ;
+  datasended.push(secteurActivite) ;
+  datasended.push(prdConstruction) ;
+  datasended.push(anneeConstruction) ;
+  datasended.push(adresseBrut) ;
+  datasended.push(typeEnergie1) ;
+  datasended.push(coutEnergie1) ;
+  datasended.push(consoEnergieFinale1) ;
+  datasended.push(consoEnergiePrimaire1) ;
+  datasended.push(typeEnergie2) ;
+  datasended.push(coutEnergie2) ;
+  datasended.push(consoEnergieFinale2) ;
+  datasended.push(consoEnergiePrimaire2) ;
+  datasended.push(typeEnergie3) ;
+  datasended.push(coutEnergie3) ;
+  datasended.push(consoEnergieFinale3) ;
+  datasended.push(consoEnergiePrimaire3) ;
+  return datasended
+};
 
+function traitementDataDPEVide(dataprev, nbrDPE) {
+  dataprev.push(nbrDPE);
+  dataprev.push(null);
+  dataprev.push(null);
+  dataprev.push(null);
+  dataprev.push(null);
+  dataprev.push(null);
+  dataprev.push(null);
+  dataprev.push(null);
+  dataprev.push(null);
+  dataprev.push(null);
+  dataprev.push(null);
+  dataprev.push(null);
+  dataprev.push(null);
+  dataprev.push(null);
+  dataprev.push(null);
+  dataprev.push(null);
+  dataprev.push(null);
+  dataprev.push(null);
+  dataprev.push(null);
+  dataprev.push(null);
+  dataprev.push(null);
+  dataprev.push(null);
+  dataprev.push(null);
+  dataprev.push(null);
+  dataprev.push(null);
+  dataprev.push(null);
+  dataprev.push(null);
+  dataprev.push(null);
+  return dataprev
+};
 
   // Fonction pour aller récupérer les adresses en fonction de la saisie de l'utilisateur : 
   async function getInfoAdresse(adresse) {
@@ -442,9 +490,11 @@ function traitementDataDPE(data, dataprev, nbrDPE) {
       // console.log(Object.keys(donnees.results[0]))
       if (donnees.total == 0) {
         buttonAdresseActuel.remove();
-        globalData.push(dataAdresse);
+        newDataAdresse = traitementDataDPEVide(dataAdresse,0)
+        globalData.push(newDataAdresse);
       } else {
         for (let index = 0; index < donnees.results.length; index++) {
+          let dataAdresseTemp = dataAdresse ;
           let idx = index;
           // Récupération de la carte pour ajout : 
           let carteActuelle = document.getElementById(`espace_dpe_${numero_id}`);
@@ -455,8 +505,8 @@ function traitementDataDPE(data, dataprev, nbrDPE) {
             boutonRequeteSup = creationBoutonRequeteSup(donnees.next, typeAPI, periodeAPI, numero_id, index)
             carteActuelle.appendChild(boutonRequeteSup);
           }
-          // dataAdresseDPE = traitementDataDPE(donnees.results[index], dataAdresse, donnees.total)
-          globalData.push(dataAdresse);
+          newDataAdresse = traitementDataDPE(donnees.results[index], dataAdresseTemp, donnees.total, liste)
+          globalData.push(newDataAdresse);
         }
         let nomAdresseActuelle = document.getElementById(`nom_adresse_${numero_id}`);
         nomAdresseActuelle.textContent = `${nomAdresseActuelle.textContent} (${donnees.total} DPE)`
