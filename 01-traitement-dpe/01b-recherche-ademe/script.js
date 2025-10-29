@@ -50,11 +50,11 @@ function getChoixAPI(typeAPIf, periodeAPIf, num_ademe) {
     if (typeAPIf === 1 && periodeAPIf === 1) {
         urlGetf = `${urlDPETertiairev1}${num_ademe}&q_mode=simple&q_field=numero_dpe`;
     } else if (typeAPIf === 1 && periodeAPIf === 2) {
-        urlGetf = `${urlDPETertiairev2}${num_ademe}&q_mode=simple&q_fields=N°DPE`;
+        urlGetf = `${urlDPETertiairev2}${num_ademe}&q_mode=simple&q_fields=numero_dpe`;
     } else if (typeAPIf === 2 && periodeAPIf === 2) {
         urlGetf = `${urlDPENeufv2}${num_ademe}&q_mode=simple&q_fields=numero_dpe`;
     } else if (typeAPIf === 3 && periodeAPIf === 2) {
-        urlGetf = `${urlDPEExistantv2}${num_ademe}&q_mode=simple&q_fields=N°DPE`;
+        urlGetf = `${urlDPEExistantv2}${num_ademe}&q_mode=simple&q_fields=numero_dpe`;
     } else if (typeAPIf === 4 && periodeAPIf === 2) {
         urlGetf = `${urlAuditEnergetique}${num_ademe}&q_mode=simple&q_fields=n_audit`;
     }
