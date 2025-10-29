@@ -8,10 +8,10 @@ let barDeProgression = document.getElementById("progress-bar");
 
 var resultGetInfoDPE = [];
 var arrayCSV = [];
-const url = "https://data.ademe.fr/data-fair/api/v1/datasets/dpe-v2-tertiaire-2/lines?select=*&q=";
+const url =  "https://data.ademe.fr/data-fair/api/v1/datasets/dpe01tertiaire/lines?select=*&q=";
 const urlTertiairev1 = "https://data.ademe.fr/data-fair/api/v1/datasets/dpe-tertiaire/lines?select=*&q=";
 const urlDPENeufv2 = "https://data.ademe.fr/data-fair/api/v1/datasets/dpe02neuf/lines?select=*&q=";
-const urlDPEExistantv2 = "https://data.ademe.fr/data-fair/api/v1/datasets/dpe-v2-logements-existants/lines?select=*&q=";
+const urlDPEExistantv2 = "https://data.ademe.fr/data-fair/api/v1/datasets/dpe03existant/lines?select=*&q=";
 const urlAuditEnergetique = "https://data.ademe.fr/data-fair/api/v1/datasets/audit-opendata/lines?q=";
 
 let intervalId;
