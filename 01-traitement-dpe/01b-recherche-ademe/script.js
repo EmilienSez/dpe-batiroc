@@ -1,7 +1,7 @@
-const urlDPETertiairev2 = "https://data.ademe.fr/data-fair/api/v1/datasets/dpe-v2-tertiaire-2/lines?select=*&q=";
+const urlDPETertiairev2 = "https://data.ademe.fr/data-fair/api/v1/datasets/dpe01tertiaire/lines?select=*&q=";
 const urlDPETertiairev1 = "https://data.ademe.fr/data-fair/api/v1/datasets/dpe-tertiaire/lines?select=*&q=";
 const urlDPENeufv2 = "https://data.ademe.fr/data-fair/api/v1/datasets/dpe02neuf/lines?select=*&q=";
-const urlDPEExistantv2 = "https://data.ademe.fr/data-fair/api/v1/datasets/dpe-v2-logements-existants/lines?select=*&q=";
+const urlDPEExistantv2 = "https://data.ademe.fr/data-fair/api/v1/datasets/dpe03existant/lines?select=*&q=";
 const urlAuditEnergetique = "https://data.ademe.fr/data-fair/api/v1/datasets/audit-opendata/lines?q=";
 
 // Liste des DPE pour faire des tests :     
