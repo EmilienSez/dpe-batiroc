@@ -23,26 +23,26 @@ let input = document.getElementById('myInput');
 let typeAPI = 1;
 let periodeAPI = 2;
 
-let nomColAPIv2Tertiaire = ["Score_BAN","Adresse_brut","Nom_commune_brut","code_postal_brut","numero_dpe","Etiquette_DPE","conso_kwhep_m2_an","Etiquette_GES",
-    "emission_ges_kg_co2_m2_an","Date_etablissement_DPE","methode_dpe", "annee_construction", "periode_construction", "Secteur_activite", "surface_shon"
-    , "Surface_utile"];
+let nomColAPIv2Tertiaire = ["score_BAN","adresse_brut","nom_commune_brut","code_postal_brut","numero_dpe","etiquette_DPE","conso_kwhep_m2_an","etiquette_GES",
+    "emission_ges_kg_co2_m2_an","date_etablissement_DPE","methode_dpe", "annee_construction", "periode_construction", "secteur_activite", "surface_shon"
+    , "surface_utile"];
 
 let nomColAPIv1Tertiaire = ["geo_score", "nom_rue", "commune", "code_postal", "numero_dpe", "classe_consommation_energie", "consommation_energie", 
     "classe_estimation_ges", "estimation_ges", "date_etablissement_dpe", "nom_methode_dpe", "annee_construction", "annee_construction", "secteur_activite", "shon",
     "surface_utile"];
 
 let nomColAPIv2Neuf = ["score_ban","adresse_brut","nom_commune_brut","code_postal_brut","numero_dpe","etiquette_dpe","conso_5_usages_par_m2_ef","etiquette_ges",
-    "emission_ges_5_usages_par_m2","date_etablissement_dpe","methode_application_dpe", "Année_construction", "Période_construction","type_batiment",
+    "emission_ges_5_usages_par_m2","date_etablissement_dpe","methode_application_dpe", "annee_construction", "periode_construction","type_batiment",
     "surface_habitable_immeuble","surface_habitable_logement"
 ];
 
-let nomColAPIv2Existant = ["Score_BAN","Adresse_brut","nom_commune_ban","code_postal_brut","numero_dpe","Etiquette_DPE","conso_5_usages_par_m2_ep",
-    "Etiquette_GES","Emission_GES_5_usages_par_m²","Date_établissement_DPE","Méthode_application_DPE", "Année_construction", "Période_construction","Type_bâtiment"
-    ,"Surface_habitable_logement","Surface_habitable_immeuble"
+let nomColAPIv2Existant = ["score_BAN","adresse_brut","nom_commune_ban","code_postal_brut","numero_dpe","etiquette_DPE","conso_5_usages_par_m2_ef",
+    "etiquette_GES","emission_ges_5_usages_par_m2","date_etablissement_DPE","methode_application_DPE", "annee_construction", "periode_construction","type_batiment"
+    ,"surface_habitable_logement","surface_habitable_immeuble"
 ];
 
 let nomColAPIv2Audit = ["score_ban","adresse_brut","nom_commune_brut","code_postal_brut","numero_dpe","classe_bilan_dpe","conso_5_usages_m2",
-     "Etiquette_GES","Emission_ges_5_usages_par_m2","Date_etablissement_DPE","Methode_application_DPE", "Annee_construction", "Periode_construction","Type_batiment"
+     "Etiquette_GES","Emission_ges_5_usages_m2","Date_etablissement_audit","Methode_application_DPE", "Annee_construction", "Periode_construction"
     ,"surface_habitable_logement","surface_ventilee"
 ];
 
