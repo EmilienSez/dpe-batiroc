@@ -23,8 +23,8 @@ let input = document.getElementById('myInput');
 let typeAPI = 1;
 let periodeAPI = 2;
 
-let nomColAPIv2Tertiaire = ["Score_BAN","Adresse_brute","Nom__commune_(Brut)","Code_postal_(brut)","numero_dpe","Etiquette_DPE","Conso_kWhep/m²/an","Etiquette_GES",
-    "Emission_GES_kgCO2/m²/an","Date_établissement_DPE","Méthode_du_DPE", "Année_construction", "Période_construction", "Secteur_activité", "Surface_(SHON)"
+let nomColAPIv2Tertiaire = ["Score_BAN","Adresse_brut","Nom_commune_brut","code_postal_brut","numero_dpe","Etiquette_DPE","conso_kwhep_m2_an","Etiquette_GES",
+    "emission_ges_kg_co2_m2_an","Date_etablissement_DPE","methode_dpe", "annee_construction", "periode_construction", "Secteur_activite", "surface_shon"
     , "Surface_utile"];
 
 let nomColAPIv1Tertiaire = ["geo_score", "nom_rue", "commune", "code_postal", "numero_dpe", "classe_consommation_energie", "consommation_energie", 
@@ -36,13 +36,13 @@ let nomColAPIv2Neuf = ["score_ban","adresse_brut","nom_commune_brut","code_posta
     "surface_habitable_immeuble","surface_habitable_logement"
 ];
 
-let nomColAPIv2Existant = ["Score_BAN","Adresse_brute","Nom__commune_(BAN)","Code_postal_(brut)","numero_dpe","Etiquette_DPE","Conso_5_usages_par_m²_é_primaire",
+let nomColAPIv2Existant = ["Score_BAN","Adresse_brut","nom_commune_ban","code_postal_brut","numero_dpe","Etiquette_DPE","conso_5_usages_par_m2_ep",
     "Etiquette_GES","Emission_GES_5_usages_par_m²","Date_établissement_DPE","Méthode_application_DPE", "Année_construction", "Période_construction","Type_bâtiment"
     ,"Surface_habitable_logement","Surface_habitable_immeuble"
 ];
 
 let nomColAPIv2Audit = ["score_ban","adresse_brut","nom_commune_brut","code_postal_brut","numero_dpe","classe_bilan_dpe","conso_5_usages_m2",
-    "etiquette_ges","emission_ges_5_usages_m2","date_etablissement_audit","methode_application_dpe", "annee_construction", "periode_constuction","Type_bâtiment"
+     "Etiquette_GES","Emission_ges_5_usages_par_m2","Date_etablissement_DPE","Methode_application_DPE", "Annee_construction", "Periode_construction","Type_batiment"
     ,"surface_habitable_logement","surface_ventilee"
 ];
 
