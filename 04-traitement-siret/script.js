@@ -1,6 +1,7 @@
 // Récupération des éléments du DOM : 
 const url = "https://recherche-entreprises.api.gouv.fr/search?q=";
-const urlBANO = "https://api-adresse.data.gouv.fr/search/?q=";
+const urlBANO = "https://data.geopf.fr/geocodage/search/?q=";
+
 let input = document.getElementById('myInput');
 let boutonLancerRechercheUnique = document.getElementById('lancer-recherche');
 let boutonLancerTraitement = document.getElementById('lancer-traitement');
