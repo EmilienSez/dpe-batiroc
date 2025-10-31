@@ -1,5 +1,6 @@
 // Définition des variables : 
-const url = "https://api-adresse.data.gouv.fr/search/?q=";
+// const url = "https://api-adresse.data.gouv.fr/search/?q=";
+const url = "https://data.geopf.fr/geocodage/search/?q=";
 const urlDPETertiairev2 = "https://data.ademe.fr/data-fair/api/v1/datasets/dpe01tertiaire/lines?select=*&q=";
 const urlDPETertiairev1 = "https://data.ademe.fr/data-fair/api/v1/datasets/dpe-tertiaire/lines?select=*&q=";
 const urlDPENeufv2 = "https://data.ademe.fr/data-fair/api/v1/datasets/dpe02neuf/lines?select=*&q=";
