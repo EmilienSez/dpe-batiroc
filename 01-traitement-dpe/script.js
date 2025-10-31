@@ -51,41 +51,41 @@ let housenumber = document.getElementById('housenumber_adr');
 let street = document.getElementById('street_adr');
 let context = document.getElementById('context_adr');
 
-let nomColAPIv2Tertiaire = ["Score_BAN", "Adresse_brute", "Nom__commune_(Brut)", "Code_postal_(brut)", "N°DPE", "Etiquette_DPE", "Conso_kWhep/m²/an", "Etiquette_GES",
-  "Emission_GES_kgCO2/m²/an", "Date_établissement_DPE", "Méthode_du_DPE", "Année_construction", "Période_construction", "Secteur_activité", "Surface_(SHON)"
-  ,"Surface_utile","Modèle_DPE","Date_fin_validité_DPE","Type_énergie_n°1","Frais_annuel_énergie_n°1","Conso_é_finale_énergie_n°1","Conso_é_primaire_énergie_n°1"
-  ,"Type_énergie_n°2","Frais_annuel_énergie_n°2","Conso_é_finale_énergie_n°2","Conso_é_primaire_énergie_n°2"
-  ,"Type_énergie_n°3","Frais_annuel_énergie_n°3","Conso_é_finale_énergie_n°3","Conso_é_primaire_énergie_n°3"]
+let nomColAPIv2Tertiaire = ["score_ban","adresse_brut","nom_commune_brut","code_postal_brut","numero_dpe","etiquette_dpe","conso_kwhep_m2_an","etiquette_ges",
+  "emission_ges_kg_co2_m2_an","date_etablissement_dpe","methode_dpe", "annee_construction", "periode_construction", "secteur_activite", "surface_shon"
+  , "surface_utile","modele_dpe","date_fin_validite_dpe","type_energie_n1","rais_annuel_energie_n1","conso_ef_energie_n1","conso_ep_energie_n1"
+  ,"type_energie_n2","rais_annuel_energie_n2","conso_ef_energie_n2","conso_ep_energie_n2"
+  ,"type_energie_n3","rais_annuel_energie_n3","conso_ef_energie_n3","conso_ep_energie_n3"]
 
 let nomColAPIv1Tertiaire = ["geo_score", "nom_rue", "commune", "code_postal", "numero_dpe", "classe_consommation_energie", "consommation_energie",
   "classe_estimation_ges", "estimation_ges", "date_etablissement_dpe", "nom_methode_dpe", "annee_construction", "annee_construction", "secteur_activite", "shon",
-  "surface_utile","tr001_modele_dpe_fichier_vierge","Date_fin_validité_DPE","Type_énergie_n°1","Frais_annuel_énergie_n°1","Conso_é_finale_énergie_n°1","Conso_é_primaire_énergie_n°1"
-  ,"Type_énergie_n°2","Frais_annuel_énergie_n°2","Conso_é_finale_énergie_n°2","Conso_é_primaire_énergie_n°2"
-  ,"Type_énergie_n°3","Frais_annuel_énergie_n°3","Conso_é_finale_énergie_n°3","Conso_é_primaire_énergie_n°3"];
+  "surface_utile", "tr001_modele_dpe_fichier_vierge", "Date_fin_validité_DPE", "Type_énergie_n°1", "Frais_annuel_énergie_n°1", "Conso_é_finale_énergie_n°1", "Conso_é_primaire_énergie_n°1"
+  , "Type_énergie_n°2", "Frais_annuel_énergie_n°2", "Conso_é_finale_énergie_n°2", "Conso_é_primaire_énergie_n°2"
+  , "Type_énergie_n°3", "Frais_annuel_énergie_n°3", "Conso_é_finale_énergie_n°3", "Conso_é_primaire_énergie_n°3"];
 
 let nomColAPIv2Neuf = ["score_ban", "adresse_brut", "nom_commune_brut", "code_postal_brut", "numero_dpe", "etiquette_dpe", "conso_5_usages_par_m2_ef", "etiquette_ges",
-  "emission_ges_5_usages_par_m2", "date_etablissement_dpe", "methode_application_dpe", "Année_construction", "Période_construction", "type_batiment",
-  "surface_habitable_immeuble", "surface_habitable_logement","modele_dpe","date_fin_validite_dpe"
-  ,"type_energie_n1","cout_total_5_usages_energie_n1","conso_5_usages_ef_energie_n1","conso_5_usages_ep"
-  ,"type_energie_n2","cout_total_5_usages_energie_n2","conso_5_usages_ef_energie_n2","conso_5_usages_ep"
-  ,"type_energie_n3","cout_total_5_usages_energie_n3","conso_5_usages_ef_energie_n3","conso_5_usages_ep"
+  "emission_ges_5_usages_par_m2", "date_etablissement_dpe", "methode_application_dpe", "annee_construction", "periode_construction", "type_batiment",
+  "surface_habitable_immeuble", "surface_habitable_logement", "modele_dpe", "date_fin_validite_dpe"
+  , "type_energie_n1", "cout_total_5_usages_energie_n1", "conso_5_usages_ef_energie_n1", "conso_5_usages_ep"
+  , "type_energie_n2", "cout_total_5_usages_energie_n2", "conso_5_usages_ef_energie_n2", "conso_5_usages_ep"
+  , "type_energie_n3", "cout_total_5_usages_energie_n3", "conso_5_usages_ef_energie_n3", "conso_5_usages_ep"
 ];
 
-let nomColAPIv2Existant = ["Score_BAN", "Adresse_brute", "Nom__commune_(BAN)", "Code_postal_(brut)", "N°DPE", "Etiquette_DPE", "Conso_5_usages_par_m²_é_primaire",
-  "Etiquette_GES", "Emission_GES_5_usages_par_m²", "Date_établissement_DPE", "Méthode_application_DPE", "Année_construction", "Période_construction", "Type_bâtiment"
-  , "Surface_habitable_logement", "Surface_habitable_immeuble"
-  ,"Modèle_DPE","Date_fin_validité_DPE","Type_énergie_n°1","Frais_annuel_énergie_n°1","Conso_é_finale_énergie_n°1","Conso_é_primaire_énergie_n°1"
-  ,"Type_énergie_n°2","Frais_annuel_énergie_n°2","Conso_é_finale_énergie_n°2","Conso_é_primaire_énergie_n°2"
-  ,"Type_énergie_n°3","Frais_annuel_énergie_n°3","Conso_é_finale_énergie_n°3","Conso_é_primaire_énergie_n°3"
+let nomColAPIv2Existant = ["score_ban", "adresse_brut", "nom_commune_ban", "code_postal_brut", "numero_dpe", "etiquette_dpe", "conso_5_usages_par_m2_ep",
+  "etiquette_ges", "emission_ges_5_usages_par_m2", "date_etablissement_dpe", "methode_application_dpe", "annee_construction", "periode_construction", "type_batiment"
+  , "surface_habitable_logement", "surface_habitable_immeuble"
+  , "modele_dpe", "date_fin_validite_dpe", "type_energie_n1", "cout_total_5_usages_energie_n1", "conso_5_usages_ef", "conso_5_usages_ep"
+  , "type_energie_n2", "cout_total_5_usages_energie_n2", "conso_5_usages_ef", "conso_5_usages_ep"
+  , "type_energie_n3", "cout_total_5_usages_energie_n3", "conso_5_usages_ef", "conso_5_usages_ep"
 ];
 
 
 let nomColAPIv2Audit = ["score_ban", "adresse_brut", "nom_commune_brut", "code_postal_brut", "numero_dpe", "classe_bilan_dpe", "conso_5_usages_m2",
   "etiquette_ges", "emission_ges_5_usages_m2", "date_etablissement_audit", "methode_application_dpe", "annee_construction", "periode_constuction", "Type_bâtiment"
-  , "surface_habitable_logement", "surface_ventilee","categorie_scenario","date_fin_validite_audit"
-  ,"type_energie_n1","cout_5_usages_energie_n1","conso_ef_5_usages_energie_n1","ep_conso_5_usages"
-  ,"type_energie_n2","cout_5_usages_energie_n2","conso_ef_5_usages_energie_n2","ep_conso_5_usages"
-  ,"type_energie_n3","cout_5_usages_energie_n3","conso_ef_5_usages_energie_n3","ep_conso_5_usages"
+  , "surface_habitable_logement", "surface_ventilee", "categorie_scenario", "date_fin_validite_audit"
+  , "type_energie_n1", "cout_5_usages_energie_n1", "conso_ef_5_usages_energie_n1", "ep_conso_5_usages"
+  , "type_energie_n2", "cout_5_usages_energie_n2", "conso_ef_5_usages_energie_n2", "ep_conso_5_usages"
+  , "type_energie_n3", "cout_5_usages_energie_n3", "conso_ef_5_usages_energie_n3", "ep_conso_5_usages"
 ];
 
 // Gestion de la recherche Unique : 
