@@ -26,19 +26,19 @@ let nomColAPIv1Tertiaire = ["geo_score", "nom_rue", "commune", "code_postal", "n
   , "Type_énergie_n°3", "Frais_annuel_énergie_n°3", "Conso_é_finale_énergie_n°3", "Conso_é_primaire_énergie_n°3"];
 
 let nomColAPIv2Neuf = ["score_ban", "adresse_brut", "nom_commune_brut", "code_postal_brut", "numero_dpe", "etiquette_dpe", "conso_5_usages_par_m2_ef", "etiquette_ges",
-  "emission_ges_5_usages_par_m2", "date_etablissement_dpe", "methode_application_dpe", "Année_construction", "Période_construction", "type_batiment",
+  "emission_ges_5_usages_par_m2", "date_etablissement_dpe", "methode_application_dpe", "annee_construction", "periode_construction", "type_batiment",
   "surface_habitable_immeuble", "surface_habitable_logement", "modele_dpe", "date_fin_validite_dpe"
   , "type_energie_n1", "cout_total_5_usages_energie_n1", "conso_5_usages_ef_energie_n1", "conso_5_usages_ep"
   , "type_energie_n2", "cout_total_5_usages_energie_n2", "conso_5_usages_ef_energie_n2", "conso_5_usages_ep"
   , "type_energie_n3", "cout_total_5_usages_energie_n3", "conso_5_usages_ef_energie_n3", "conso_5_usages_ep"
 ];
 
-let nomColAPIv2Existant = ["Score_BAN", "Adresse_brute", "Nom__commune_(BAN)", "Code_postal_(brut)", "N°DPE", "Etiquette_DPE", "Conso_5_usages_par_m²_é_primaire",
-  "Etiquette_GES", "Emission_GES_5_usages_par_m²", "Date_établissement_DPE", "Méthode_application_DPE", "Année_construction", "Période_construction", "Type_bâtiment"
-  , "Surface_habitable_logement", "Surface_habitable_immeuble"
-  , "Modèle_DPE", "Date_fin_validité_DPE", "Type_énergie_n°1", "Frais_annuel_énergie_n°1", "Conso_é_finale_énergie_n°1", "Conso_é_primaire_énergie_n°1"
-  , "Type_énergie_n°2", "Frais_annuel_énergie_n°2", "Conso_é_finale_énergie_n°2", "Conso_é_primaire_énergie_n°2"
-  , "Type_énergie_n°3", "Frais_annuel_énergie_n°3", "Conso_é_finale_énergie_n°3", "Conso_é_primaire_énergie_n°3"
+let nomColAPIv2Existant = ["score_ban", "adresse_brut", "nom_commune_ban", "code_postal_brut", "numero_dpe", "etiquette_dpe", "conso_5_usages_par_m2_ep",
+  "etiquette_ges", "emission_ges_5_usages_par_m2", "date_etablissement_dpe", "methode_application_dpe", "annee_construction", "periode_construction", "type_batiment"
+  , "surface_habitable_logement", "surface_habitable_immeuble"
+  , "modele_dpe", "date_fin_validite_dpe", "type_energie_n1", "cout_total_5_usages_energie_n1", "conso_5_usages_ef", "conso_5_usages_ep"
+  , "type_energie_n2", "cout_total_5_usages_energie_n2", "conso_5_usages_ef", "conso_5_usages_ep"
+  , "type_energie_n3", "cout_total_5_usages_energie_n3", "conso_5_usages_ef", "conso_5_usages_ep"
 ];
 
 
@@ -197,33 +197,33 @@ async function getInfoDPE(numeroAdeme) {
         let consoEnergieFinale3 = null;
         let consoEnergiePrimaire3 = null;
         if (donnees["total"] == 1) {
-          if (donnees["results"][0]["N°DPE"]) { numDPE = donnees["results"][0]["N°DPE"] } else { numDPE = null }
-          if (donnees["results"][0]["Modèle_DPE"]) { typeDPE = donnees["results"][0]["Modèle_DPE"] } else { typeDPE = null }
-          if (donnees["results"][0]["Méthode_du_DPE"]) { methodeDPE = donnees["results"][0]["Méthode_du_DPE"] } else { methodeDPE = null }
-          if (donnees["results"][0]["Etiquette_DPE"]) { noteDPE = donnees["results"][0]["Etiquette_DPE"] } else { noteDPE = null }
-          if (donnees["results"][0]["Etiquette_GES"]) { noteGES = donnees["results"][0]["Etiquette_GES"] } else { noteGES = null }
-          if (donnees["results"][0]["Conso_kWhep/m²/an"]) { consoDPE = donnees["results"][0]["Conso_kWhep/m²/an"] } else { consoDPE = null }
-          if (donnees["results"][0]["Emission_GES_kgCO2/m²/an"]) { consoGES = donnees["results"][0]["Emission_GES_kgCO2/m²/an"] } else { consoGES = null }
-          if (donnees["results"][0]["Date_établissement_DPE"]) { dateEtabDPE = donnees["results"][0]["Date_établissement_DPE"] } else { dateEtabDPE = null }
-          if (donnees["results"][0]["Date_fin_validité_DPE"]) { dateFinDPE = donnees["results"][0]["Date_fin_validité_DPE"] } else { dateFinDPE = null }
-          if (donnees["results"][0]["Surface_utile"]) { surfaceUtile = donnees["results"][0]["Surface_utile"] } else { surfaceUtile = null }
-          if (donnees["results"][0]["Surface_(SHON)"]) { shon = donnees["results"][0]["Surface_(SHON)"] } else { shon = null }
-          if (donnees["results"][0]["Secteur_activité"]) { secteurActivite = donnees["results"][0]["Secteur_activité"] } else { secteurActivite = null }
-          if (donnees["results"][0]["Période_construction"]) { prdConstruction = donnees["results"][0]["Période_construction"] } else { prdConstruction = null }
-          if (donnees["results"][0]["Année_construction"]) { anneeConstruction = donnees["results"][0]["Année_construction"] } else { anneeConstruction = null }
-          if (donnees["results"][0]["Adresse_brute"]) { adresseBrut = donnees["results"][0]["Adresse_brute"] + " " + donnees["results"][0]["Code_postal_(brut)"] + " " + donnees["results"][0]["Nom__commune_(Brut)"] } else { adresseBrut = null }
-          if (donnees["results"][0]["Type_énergie_n°1"]) { typeEnergie1 = donnees["results"][0]["Type_énergie_n°1"] } else { typeEnergie1 = null }
-          if (donnees["results"][0]["Frais_annuel_énergie_n°1"]) { coutEnergie1 = donnees["results"][0]["Frais_annuel_énergie_n°1"] } else { coutEnergie1 = null }
-          if (donnees["results"][0]["Conso_é_finale_énergie_n°1"]) { consoEnergieFinale1 = donnees["results"][0]["Conso_é_finale_énergie_n°1"] } else { consoEnergieFinale1 = null }
-          if (donnees["results"][0]["Conso_é_primaire_énergie_n°1"]) { consoEnergiePrimaire1 = donnees["results"][0]["Conso_é_primaire_énergie_n°1"] } else { consoEnergiePrimaire1 = null }
-          if (donnees["results"][0]["Type_énergie_n°2"]) { typeEnergie2 = donnees["results"][0]["Type_énergie_n°2"] } else { typeEnergie2 = null }
-          if (donnees["results"][0]["Frais_annuel_énergie_n°2"]) { coutEnergie2 = donnees["results"][0]["Frais_annuel_énergie_n°2"] } else { coutEnergie2 = null }
-          if (donnees["results"][0]["Conso_é_finale_énergie_n°2"]) { consoEnergieFinale2 = donnees["results"][0]["Conso_é_finale_énergie_n°2"] } else { consoEnergieFinale2 = null }
-          if (donnees["results"][0]["Conso_é_primaire_énergie_n°2"]) { consoEnergiePrimaire2 = donnees["results"][0]["Conso_é_primaire_énergie_n°2"] } else { consoEnergiePrimaire2 = null }
-          if (donnees["results"][0]["Type_énergie_n°3"]) { typeEnergie3 = donnees["results"][0]["Type_énergie_n°3"] } else { typeEnergie3 = null }
-          if (donnees["results"][0]["Frais_annuel_énergie_n°3"]) { coutEnergie3 = donnees["results"][0]["Frais_annuel_énergie_n°3"] } else { coutEnergie3 = null }
-          if (donnees["results"][0]["Conso_é_finale_énergie_n°3"]) { consoEnergieFinale3 = donnees["results"][0]["Conso_é_finale_énergie_n°3"] } else { consoEnergieFinale3 = null }
-          if (donnees["results"][0]["Conso_é_primaire_énergie_n°3"]) { consoEnergiePrimaire3 = donnees["results"][0]["Conso_é_primaire_énergie_n°3"] } else { consoEnergiePrimaire3 = null }
+          if (donnees["results"][0]["numero_dpe"]) { numDPE = donnees["results"][0]["numero_dpe"] } else { numDPE = null }
+          if (donnees["results"][0]["modele_dpe"]) { typeDPE = donnees["results"][0]["modele_dpe"] } else { typeDPE = null }
+          if (donnees["results"][0]["methode_dpe"]) { methodeDPE = donnees["results"][0]["methode_dpe"] } else { methodeDPE = null }
+          if (donnees["results"][0]["etiquette_dpe"]) { noteDPE = donnees["results"][0]["etiquette_dpe"] } else { noteDPE = null }
+          if (donnees["results"][0]["etiquette_ges"]) { noteGES = donnees["results"][0]["etiquette_ges"] } else { noteGES = null }
+          if (donnees["results"][0]["conso_kwhep_m2_an"]) { consoDPE = donnees["results"][0]["conso_kwhep_m2_an"] } else { consoDPE = null }
+          if (donnees["results"][0]["emission_ges_kg_co2_m2_an"]) { consoGES = donnees["results"][0]["emission_ges_kg_co2_m2_an"] } else { consoGES = null }
+          if (donnees["results"][0]["date_etablissement_dpe"]) { dateEtabDPE = donnees["results"][0]["date_etablissement_dpe"] } else { dateEtabDPE = null }
+          if (donnees["results"][0]["date_fin_validite_dpe"]) { dateFinDPE = donnees["results"][0]["date_fin_validite_dpe"] } else { dateFinDPE = null }
+          if (donnees["results"][0]["surface_utile"]) { surfaceUtile = donnees["results"][0]["surface_utile"] } else { surfaceUtile = null }
+          if (donnees["results"][0]["surface_shon"]) { shon = donnees["results"][0]["surface_shon"] } else { shon = null }
+          if (donnees["results"][0]["secteur_activite"]) { secteurActivite = donnees["results"][0]["secteur_activite"] } else { secteurActivite = null }
+          if (donnees["results"][0]["periode_construction"]) { prdConstruction = donnees["results"][0]["periode_construction"] } else { prdConstruction = null }
+          if (donnees["results"][0]["annee_construction"]) { anneeConstruction = donnees["results"][0]["annee_construction"] } else { anneeConstruction = null }
+          if (donnees["results"][0]["adresse_brut"]) { adresseBrut = donnees["results"][0]["adresse_brut"] + " " + donnees["results"][0]["code_postal_brut"] + " " + donnees["results"][0]["nom_commune_brut"] } else { adresseBrut = null }
+          if (donnees["results"][0]["type_energie_n1"]) { typeEnergie1 = donnees["results"][0]["type_energie_n1"] } else { typeEnergie1 = null }
+          if (donnees["results"][0]["frais_annuel_energie_n1"]) { coutEnergie1 = donnees["results"][0]["frais_annuel_energie_n1"] } else { coutEnergie1 = null }
+          if (donnees["results"][0]["conso_ef_energie_n1"]) { consoEnergieFinale1 = donnees["results"][0]["conso_ef_energie_n1"] } else { consoEnergieFinale1 = null }
+          if (donnees["results"][0]["conso_ep_energie_n1"]) { consoEnergiePrimaire1 = donnees["results"][0]["conso_ep_energie_n1"] } else { consoEnergiePrimaire1 = null }
+          if (donnees["results"][0]["type_energie_n2"]) { typeEnergie2 = donnees["results"][0]["type_energie_n2"] } else { typeEnergie2 = null }
+          if (donnees["results"][0]["frais_annuel_energie_n2"]) { coutEnergie2 = donnees["results"][0]["frais_annuel_energie_n2"] } else { coutEnergie2 = null }
+          if (donnees["results"][0]["conso_ef_energie_n2"]) { consoEnergieFinale2 = donnees["results"][0]["conso_ef_energie_n2"] } else { consoEnergieFinale2 = null }
+          if (donnees["results"][0]["conso_ep_energie_n2"]) { consoEnergiePrimaire2 = donnees["results"][0]["conso_ep_energie_n2"] } else { consoEnergiePrimaire2 = null }
+          if (donnees["results"][0]["type_energie_n3"]) { typeEnergie3 = donnees["results"][0]["type_energie_n3"] } else { typeEnergie3 = null }
+          if (donnees["results"][0]["frais_annuel_energie_n3"]) { coutEnergie3 = donnees["results"][0]["frais_annuel_energie_n3"] } else { coutEnergie3 = null }
+          if (donnees["results"][0]["conso_ef_energie_n3"]) { consoEnergieFinale3 = donnees["results"][0]["conso_ef_energie_n3"] } else { consoEnergieFinale3 = null }
+          if (donnees["results"][0]["conso_ep_energie_n3"]) { consoEnergiePrimaire3 = donnees["results"][0]["conso_ep_energie_n3"] } else { consoEnergiePrimaire3 = null }
 
           adresseBrut = adresseBrut.replace("\n", " ");
 
