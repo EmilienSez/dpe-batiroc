@@ -182,11 +182,11 @@ function getChoixAPI(typeAPIf, periodeAPIf, identifiant_bano) {
   if (typeAPIf === 1 && periodeAPIf === 1) {
     urlGetf = `${urlDPETertiairev1}${identifiant_bano}&q_mode=simple&q_field=geo_id`;
   } else if (typeAPIf === 1 && periodeAPIf === 2) {
-    urlGetf = `${urlDPETertiairev2}${identifiant_bano}&q_mode=simple&q_fields=Identifiant__BAN`;
+    urlGetf = `${urlDPETertiairev2}${identifiant_bano}&q_mode=simple&q_fields=identifiant_ban`;
   } else if (typeAPIf === 2 && periodeAPIf === 2) {
     urlGetf = `${urlDPENeufv2}${identifiant_bano}&q_mode=simple&q_fields=identifiant_ban`;
   } else if (typeAPIf === 3 && periodeAPIf === 2) {
-    urlGetf = `${urlDPEExistantv2}${identifiant_bano}&q_mode=simple&q_fields=Identifiant__BAN`;
+    urlGetf = `${urlDPEExistantv2}${identifiant_bano}&q_mode=simple&q_fields=identifiant_ban`;
   } else if (typeAPIf === 4 && periodeAPIf === 2) {
     urlGetf = `${urlAuditEnergetique}${identifiant_bano}&q_mode=simple&q_fields=identifiant_ban`;
   }
