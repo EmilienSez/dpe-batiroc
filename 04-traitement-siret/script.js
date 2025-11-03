@@ -430,8 +430,6 @@ document.addEventListener('DOMContentLoaded', function () {
         const rows = decodedContent.split('\r\n');
         // console.log(rows)
         arrayCSV.push(rows)
-        // dernier ajout  
-        arrayCSV = arrayCSV[0]
         // console.log(arrayCSV)
         boutonLancerTraitement.className = classBoutonActiver;
       };
