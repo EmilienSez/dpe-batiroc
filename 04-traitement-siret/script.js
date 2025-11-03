@@ -331,7 +331,7 @@ async function callBatchAPIInput(data) {
     , "EGALITE_GEO_ID", "ADRESSE_CONSERVE", "SCORE_CORRESPONDANCE", "NUMERO_VOIE", "TYPE_VOIE", "NOM_VOIE", "COMPLEMENT_VOIE", "VILLE", "DEPARTEMENT_NUM", "DEPARTEMENT"
     , "REGION", "DATE_FERMETURE", "NB_RESULTAT", "EST_SIEGE"]);
   };
-    for (let index = 0; index < data.length; index++) {
+    for (let index = 0; index < data[0].length; index++) {
         const siret = data[index];
         arrayoutputCall = await getInfoSiret(siret);
         resultGetInfoSiret.push(arrayoutputCall);
